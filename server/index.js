@@ -1,17 +1,12 @@
-const mysql = require('mysql');
+const connectToDb = require('./connect-to-db.js');
 
-const db = mysql.createConnection({
-	host: 'db-base-di-dati.ckehalncburp.us-east-1.rds.amazonaws.com',
-	port: '3306',
-	user: 'admin',
-	password: 'ineedtopass3exams',
-	database: 'Pathfinder_Sheets'
-});
+connectToDb.connect();
+/*
+exports.handler = async (event) => {
+	const response = connectToDb.connect();
 
-db.connect((err) => {
-	if (err) {
-		console.log(err);
-		return;
-	}
-	console.log('Database connected');
-});
+	console.log('EVENT: \n' + JSON.stringify(event, null, 2));
+
+	return response;
+};
+*/
