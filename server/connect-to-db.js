@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 
-exports.connect = () => {
+exports.connect = async () => {
 	const db = mysql.createConnection({
 		host: 'db-base-di-dati.ckehalncburp.us-east-1.rds.amazonaws.com',
 		port: '3306',
@@ -8,7 +8,7 @@ exports.connect = () => {
 		password: 'ineedtopass3exams',
 		database: 'Pathfinder_Sheets'
 	});
-	db.connect((err) => {
+	await db.connect((err) => {
 		if (err) {
 			console.log(err);
 			return {
