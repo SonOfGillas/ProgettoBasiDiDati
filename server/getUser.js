@@ -4,7 +4,7 @@ exports.handler = async (event) => {
 	let response;
 
 	try {
-		response = new Promise(() => {
+		response = new Promise((resolve) => {
 			const db = mysql.createConnection({
 				host: 'db-base-di-dati.ckehalncburp.us-east-1.rds.amazonaws.com',
 				port: '3306',
@@ -15,17 +15,14 @@ exports.handler = async (event) => {
 
 			const sql = 'SELECT * FROM Utenti';
 
-			return db.connect((err) => {
+			db.connect();
+
+			db.query(sql, (err, result) => {
 				if (err) throw err;
-				//console.log('Connected!');
-				return db.query(sql, (err, result) => {
-					if (err) throw err;
-					console.log('Result: ');
-					console.log(result);
-					return {
-						statusCode: 202,
-						body: JSON.stringify(result)
-					};
+				db.end();
+				resolve({
+					statusCode: 202,
+					body: result
 				});
 			});
 		});
