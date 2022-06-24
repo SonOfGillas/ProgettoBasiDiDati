@@ -20,12 +20,14 @@ function SignUp() {
 		};
 
 		axios
-			.get(loginApi, data)
+			.post(loginApi, data)
 			.then((response) => {
 				console.log(response);
-				alert(response);
-				if (response['body'].lenght() > 0) {
+				const utenti = response.data.body;
+				if (utenti.lenght() > 0) {
 					console.log('navigazione');
+				} else {
+					alert('utente non trovato');
 				}
 			})
 			.catch((error) => {
