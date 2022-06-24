@@ -1,12 +1,11 @@
 import './SignUp.css';
 import axios from 'axios';
 import { useState } from 'react';
-// import AWS from 'aws-sdk';
-
-// AWS.config.loadFromPath('./aws.json');
-// const lamda = new AWS.Lambda();
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
+	let navigate = useNavigate();
+
 	const loginApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/access/login';
 	const signupApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/access/signup';
 
@@ -24,8 +23,9 @@ function SignUp() {
 			.then((response) => {
 				console.log(response);
 				const utenti = response.data.body;
-				if (utenti.lenght() > 0) {
+				if (utenti.length > 0) {
 					console.log('navigazione');
+					navigate('/home');
 				} else {
 					alert('utente non trovato');
 				}
