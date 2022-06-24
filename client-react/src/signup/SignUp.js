@@ -24,8 +24,8 @@ function SignUp() {
 				console.log(response);
 				const utenti = response.data.body;
 				if (utenti.length > 0) {
-					console.log('navigazione');
-					navigate('/home');
+					console.log('utente trovato');
+					navigate('/home/' + email);
 				} else {
 					alert('utente non trovato');
 				}
@@ -46,11 +46,11 @@ function SignUp() {
 			.post(signupApi, data)
 			.then((response) => {
 				console.log(response);
-				alert(response);
+				alert('utente creato con successo');
 			})
 			.catch((error) => {
 				console.log(error);
-				alert(error);
+				alert('query fallita');
 			});
 	};
 
