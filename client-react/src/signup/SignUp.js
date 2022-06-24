@@ -7,20 +7,41 @@ import { useState } from 'react';
 // const lamda = new AWS.Lambda();
 
 function SignUp() {
-	const api = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging';
-	//const data = { name: 'mike' };
+	const loginApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/access/login';
+	const signupApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/access/signup';
 
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
 
-	const SignUp = () => {
+	const login = () => {
 		const data = {
 			Email: email,
 			Password: password
 		};
 
 		axios
-			.get(api, data)
+			.get(loginApi, data)
+			.then((response) => {
+				console.log(response);
+				alert(response);
+				if (response['body'].lenght() > 0) {
+					console.log('navigazione');
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+				alert(error);
+			});
+	};
+
+	const signup = () => {
+		const data = {
+			Email: email,
+			Password: password
+		};
+
+		axios
+			.post(signupApi, data)
 			.then((response) => {
 				console.log(response);
 				alert(response);
@@ -31,13 +52,6 @@ function SignUp() {
 			});
 	};
 
-	const FormInput = (props) => (
-		<div class='row'>
-			<label>{props.description}</label>
-			<input type='text' value={props.value} onChange={(e) => props.onChange(e.target.value)} />
-		</div>
-	);
-
 	const FormButton = (props) => (
 		<div id='button' class='row'>
 			<button onClick={props.onClick}>{props.title}</button>
@@ -46,7 +60,7 @@ function SignUp() {
 
 	const NavigationButton = (props) => (
 		<div id='navigationButton' class='row'>
-			<button>{props.title}</button>
+			<button onClick={login}>{props.title}</button>
 		</div>
 	);
 
@@ -58,7 +72,7 @@ function SignUp() {
 					<input type='text' value={email} onChange={(e) => setEmail(e.target.value)} />
 					<label>Password</label>
 					<input type='text' value={password} onChange={(e) => setPassword(e.target.value)} />
-					<FormButton onClick={SignUp} title='Sign Up' />
+					<FormButton onClick={signup} title='Sign Up' />
 					<NavigationButton title='Log In' />
 				</div>
 			</header>
