@@ -1,6 +1,6 @@
 import './SignUp.css';
 import axios from 'axios';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
@@ -12,29 +12,32 @@ function SignUp() {
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
 
-	const login = () => {
-		const data = {
-			Email: email,
-			Password: password
-		};
+	const login = useCallback(
+		() => {
+			const data = {
+				Email: email,
+				Password: password
+			};
 
-		axios
-			.post(loginApi, data)
-			.then((response) => {
-				console.log(response);
-				const utenti = response.data.body;
-				if (utenti.length > 0) {
-					console.log('utente trovato');
-					navigate('/home/' + email);
-				} else {
-					alert('utente non trovato');
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-				alert(error);
-			});
-	};
+			axios
+				.post(loginApi, data)
+				.then((response) => {
+					console.log(response);
+					const utenti = response.data.body;
+					if (utenti.length > 0) {
+						console.log('utente trovato');
+						navigate('/home/' + email);
+					} else {
+						alert('utente non trovato');
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+					alert(error);
+				});
+		},
+		[ email, navigate, password ]
+	);
 
 	const signup = () => {
 		const data = {
