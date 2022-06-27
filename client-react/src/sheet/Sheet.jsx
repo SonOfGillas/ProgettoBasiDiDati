@@ -1,14 +1,14 @@
-import styles from './Home.css';
+import styles from './Sheet.css';
 import axios from 'axios';
 import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 
-function Home() {
+function Sheet() {
 	let navigate = useNavigate();
 	let params = useParams();
-	console.log(params.email);
+	console.log(params.CodPer);
 
 	const [ characters, setCharacters ] = useState();
 
@@ -34,24 +34,14 @@ function Home() {
 
 	useEffect(
 		() => {
-			getCharacters();
+			//getCharacters();
 		},
 		[ getCharacters ]
 	);
 
-	const openOcDetail = useCallback(
-		(CodPer) => {
-			navigate('/Sheet/' + CodPer);
-		},
-		[ navigate ]
-	);
-
-	const backToLogin = useCallback(
-		() => {
-			navigate('/');
-		},
-		[ navigate ]
-	);
+	const openOcDetail = useCallback((CodPer) => {
+		navigate('/Sheet/' + CodPer);
+	});
 
 	const Character = (props) => {
 		return (
@@ -71,14 +61,10 @@ function Home() {
 	};
 
 	return (
-		<div style={styles.home} className='home'>
-			<Button title='back' onClick={backToLogin} />
-			<div style={{ display: 'flex', justifyContent: 'center' }}>{characters !== undefined && <OCs />}</div>
-			<div style={{ display: 'flex', justifyContent: 'center' }}>
-				<Button title='New Character' />
-			</div>
+		<div style={styles.sheet} className='home'>
+			<p>Character Detail page</p>
 		</div>
 	);
 }
 
-export default Home;
+export default Sheet;
