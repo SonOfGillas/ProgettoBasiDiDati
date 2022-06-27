@@ -39,9 +39,9 @@ function Home() {
 
 	const Character = (props) => {
 		return (
-			<li>
-				{props.character.Nome} <Button title='edit' />
-			</li>
+			<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 15 }}>
+				{props.character.Nome} <Button title='show' />
+			</div>
 		);
 	};
 
@@ -57,6 +57,7 @@ function Home() {
 	return (
 		<div style={styles.home} className='home'>
 			<div style={styles.home_containiner}>{characters !== undefined && <OCs />}</div>
+			<Button title='New Character' />
 		</div>
 	);
 }
