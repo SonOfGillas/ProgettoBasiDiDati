@@ -41,9 +41,9 @@ function Home() {
 
 	const openOcDetail = useCallback(
 		(CodPer) => {
-			navigate('/Sheet/' + CodPer);
+			navigate('/Sheet/' + params.email + CodPer);
 		},
-		[ navigate ]
+		[ navigate, params.email ]
 	);
 
 	const backToLogin = useCallback(
