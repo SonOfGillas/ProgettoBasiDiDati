@@ -75,8 +75,8 @@ function SignUp() {
 				<div class='signUpContainer'>
 					<label>Email</label>
 					<input type='text' value={email} onChange={(e) => setEmail(e.target.value)} />
-					<label>Password</label>
-					<input type='text' value={password} onChange={(e) => setPassword(e.target.value)} />
+					<label >Password</label>
+					<input type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
 					<FormButton onClick={signup} title='Sign Up' />
 					<NavigationButton title='Log In' />
 				</div>
