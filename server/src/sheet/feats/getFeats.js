@@ -13,7 +13,7 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const query = "INSERT INTO Utenti (Email,Password) VALUES ('" + event['Email'] + "','" + event['Password'] + "')";
+			const query = "SELECT * FROM Talenti WHERE Nome IN (SELECT NomeTalento FROM TalentiAppresi WHERE CodPer = "+ event['CodPer'] +")";
 
 			db.connect();
 

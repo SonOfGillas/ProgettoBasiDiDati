@@ -31,7 +31,7 @@ exports.handler = async (event) => {
 		console.log(e);
 		response = {
 			statusCode: 500,
-			body: JSON.stringify('query failed')
+			body: e
 		};
 	}
 
