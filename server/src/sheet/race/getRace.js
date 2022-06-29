@@ -13,19 +13,28 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const query =
+			const queryRace =
 				"Select * FROM Razze WHERE Nome='" + event['Razza'] + "'";
+            const queryRaceTraits = "SELECT * FROM Privilegi WHERE Nome IN (SELECT NomePrivilegio FROM PrivilegiRazziali WHERE NomeRazza = '"+ event['Razza'] +"')";
 
 			db.connect();
 
-			db.query(query, (err, result) => {
+			db.query(queryRace, (err, resultRace) => {
 				if (err) throw err;
-				db.end();
-				resolve({
-					statusCode: 202,
-					body: result
-				});
+                db.query(queryRaceTraits, (err, resultRaceTraits) => {
+                    if (err) throw err;
+                    db.end();
+                    resolve({
+                        statusCode: 202,
+                        body: {
+                            race:resultRace,
+                            raceTraits:resultRaceTraits
+                        }
+                    });
+                });
 			});
+
+           
 		});
 	} catch (e) {
 		console.log(e);

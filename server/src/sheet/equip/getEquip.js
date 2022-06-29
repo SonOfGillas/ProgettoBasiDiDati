@@ -13,9 +13,9 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const queryArmor = "SELECT * FROM Armature WHERE Nome = "+ event['Veste'] +")";
-            const queryShild = "SELECT * FROM Scudi WHERE Nome = "+ event['Imbraccia'] +")";
-            const queryWeapons = "SELECT * FROM Armi WHERE Nome IN (SELECT Nome FROM Equipaggiamento WHERE CodPer = "+ event['CodPer'] +")";
+			const queryArmor = "SELECT * FROM Armature WHERE Nome = '"+ event['Veste'] +"'";
+            const queryShild = "SELECT * FROM Scudi WHERE Nome = '"+ event['Imbraccia'] +"'";
+            const queryWeapons = "SELECT * FROM Armi WHERE Nome IN (SELECT Nome FROM Equipaggiamento WHERE CodPer = "+ event['CodPer']+")";
 
             let responseArmor,responseShild,responseWeapons;
 
@@ -24,27 +24,24 @@ exports.handler = async (event) => {
 			db.query(queryArmor, (err, result) => {
 				if (err) throw err;
 				responseArmor=result;
+				 db.query(queryShild, (err, result) => {
+					if (err) throw err;
+					responseShild=result;
+					  db.query(queryWeapons, (err, result) => {
+						if (err) throw err;
+						responseWeapons=result;
+						db.end();
+						resolve({
+			               statusCode: 202,
+			               body: {
+			                   armor: responseArmor,
+			                   shild: responseShild,
+			                   weapons: responseWeapons,
+			               }
+			            });
+					});
+				});
 			});
-            db.query(queryShild, (err, result) => {
-				if (err) throw err;
-				responseShild=result;
-			});
-            db.query(queryWeapons, (err, result) => {
-				if (err) throw err;
-				responseWeapons=result;
-			});
-
-
-            resolve({
-                statusCode: 202,
-                body: {
-                    armor: responseArmor,
-                    shild: responseShild,
-                    weapons: responseWeapons,
-                }
-            });
-
-            db.end();
 		});
 	} catch (e) {
 		console.log(e);
