@@ -17,7 +17,7 @@ exports.handler = async (event) => {
 
 			db.connect();
 
-			db.query(queryArmor, (err, result) => {
+			db.query(query, (err, result) => {
 				if (err) throw err;
 				db.end();
 				resolve({
