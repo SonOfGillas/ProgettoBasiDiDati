@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import ClassListElement from './ClassListElement';
+import EquipDialog from './EquipDialog';
 
 function Sheet() {
 	let navigate = useNavigate();
@@ -22,7 +23,7 @@ function Sheet() {
 	const [ classes, setClasses ] = useState();
 	const [ feats, setFeats ] = useState();
 	const [ race, setRaces ] = useState();
-	const [ equip, setEquip ] = useState();
+	const [ openEquip, setOpenEquip ] = useState(false);
 
 	const getOCApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/sheet';
 	const getOC = useCallback(
@@ -67,6 +68,8 @@ function Sheet() {
 		getClasses();
 	},[])
 
+	const OpenEquipDialog = useCallback(()=>setOpenEquip(true),[]);
+
 	return (
 		<div style={styles.sheet} className='home'>
 			<Button title='back' onClick={backToHome} />
@@ -85,11 +88,17 @@ function Sheet() {
 						<p>Armature:{traslateCompArmature(oc.CompArmature)} Scudi:{traslateCompScudi(oc.CompScudi)}</p>
 						<p>ArmiDaGuerra:{oc.CompeArmiGuerra?'si':'no'} ArmiEsotiche:{oc.CompeArmiEsotiche?'si':'no'}</p>
 						<h5>Razza</h5>
-						<div style={{ display: 'flex', flexDirection: 'row' }}>Razza: {oc.Razza} <Button title='show' onClick={backToHome} /></div>
+						<div style={{ display: 'flex', flexDirection: 'row' }}>Razza: {oc.Razza} <Button title='show' onClick={OpenEquipDialog} /></div>
 						<h5>Equippagiamento</h5>
-						<div style={{ display: 'flex', flexDirection: 'row' }}>Imbraccia: {oc.Imbraccia} <Button title='show' onClick={backToHome} /></div>
-						<div style={{ display: 'flex', flexDirection: 'row' }}>Veste: {oc.Veste} <Button title='show' onClick={backToHome} /></div>
-						<div style={{ display: 'flex', flexDirection: 'row' }}>Armi {oc.Armi} <Button title='show' onClick={backToHome} /></div>
+						<div style={{ display: 'flex', flexDirection: 'row' }}>
+							Imbraccia: {oc.Imbraccia??'nulla'} 
+							{oc.Imbraccia!=null && <Button title='show' onClick={OpenEquipDialog}/>}
+						</div>
+						<div style={{ display: 'flex', flexDirection: 'row' }}>
+							Veste: {oc.Veste??'nulla'}
+							{oc.Veste!=null && <Button title='show' onClick={OpenEquipDialog} />}
+						</div>
+						<div style={{ display: 'flex', flexDirection: 'row' }}>Armi {oc.Armi} <Button title='show' onClick={OpenEquipDialog} /></div>
 					</div>}
 				</div>
 				<div style={{ display: 'flex', flexDirection: 'column', flexGrow: 3, alignItems: 'center' }}>
@@ -106,6 +115,7 @@ function Sheet() {
 				</div>	
 				<div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }} />
 			</div>
+			{oc && <EquipDialog open={openEquip} handleClose={()=>setOpenEquip(false)} Veste={oc.Veste} Imbraccia={oc.Imbraccia} CodPer={params.CodPer}/> }
 		</div>
 	);
 }
