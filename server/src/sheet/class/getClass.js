@@ -13,7 +13,7 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const query = "SELECT * FROM Personaggi WHERE CodPer = '" + event['CodPer'] + "'";
+			const query = "SELECT * FROM Classi WHERE CodPer = '" + event['CodPer'] + "'";
 
 			db.connect();
 
