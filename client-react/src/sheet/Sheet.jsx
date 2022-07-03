@@ -6,6 +6,7 @@ import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import ClassListElement from './ClassListElement';
 import EquipDialog from './EquipDialog';
+import RaceDialog from './RaceDialog';
 
 function Sheet() {
 	let navigate = useNavigate();
@@ -21,8 +22,8 @@ function Sheet() {
 
 	const [ oc, setOc ] = useState();
 	const [ classes, setClasses ] = useState();
-	const [ feats, setFeats ] = useState();
-	const [ race, setRaces ] = useState();
+	const [ openFeats, setOpenFeats ] = useState();
+	const [ openRace, setOpenRace ] = useState();
 	const [ openEquip, setOpenEquip ] = useState(false);
 
 	const getOCApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/sheet';
@@ -69,6 +70,7 @@ function Sheet() {
 	},[])
 
 	const OpenEquipDialog = useCallback(()=>setOpenEquip(true),[]);
+	const OpenRaceDialog = useCallback(()=>setOpenRace(true),[]);
 
 	return (
 		<div style={styles.sheet} className='home'>
@@ -88,7 +90,7 @@ function Sheet() {
 						<p>Armature:{traslateCompArmature(oc.CompArmature)} Scudi:{traslateCompScudi(oc.CompScudi)}</p>
 						<p>ArmiDaGuerra:{oc.CompeArmiGuerra?'si':'no'} ArmiEsotiche:{oc.CompeArmiEsotiche?'si':'no'}</p>
 						<h5>Razza</h5>
-						<div style={{ display: 'flex', flexDirection: 'row' }}>Razza: {oc.Razza} <Button title='show' onClick={OpenEquipDialog} /></div>
+						<div style={{ display: 'flex', flexDirection: 'row' }}>Razza: {oc.Razza} <Button title='show' onClick={OpenRaceDialog} /></div>
 						<h5>Equippagiamento</h5>
 						<div style={{ display: 'flex', flexDirection: 'row' }}>
 							Imbraccia: {oc.Imbraccia??'nulla'} 
@@ -115,6 +117,7 @@ function Sheet() {
 				</div>	
 				<div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }} />
 			</div>
+			{oc && <RaceDialog open={openRace} handleClose={()=>setOpenRace(false)}  Razza={oc.Razza}/>}
 			{oc && <EquipDialog open={openEquip} handleClose={()=>setOpenEquip(false)} Veste={oc.Veste} Imbraccia={oc.Imbraccia} CodPer={params.CodPer}/> }
 		</div>
 	);
