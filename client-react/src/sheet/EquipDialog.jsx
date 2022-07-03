@@ -41,9 +41,43 @@ function EquipDialog (props) {
             Dettaglio Equippagiamento
         </DialogTitle>
         <DialogContent> 
-          <DialogContentText>
-            Do you do coding ?
-          </DialogContentText>
+        {equip && <div>
+          {equip.armor && 
+          <div>
+            <h4>Armatura</h4>
+            <p>Nome: {equip.armor[0].Nome}</p>
+            <p>Bonus alla CA:{equip.armor[0].BonusCA}</p>
+            <p>Competenza richiesta: armature {traslateCompArmature(equip.armor[0].Competenza)}</p>
+            <p>fallimento incantesimi:{equip.armor[0].FallimentoIncantesimi}%</p>
+            <p>penalità alla prova{equip.armor[0].PenalitaProva}</p>
+          </div>
+          }
+          { equip.shild &&
+            <div>
+              <h4>Scudo</h4>
+              <p>Nome: {equip.shild[0].Nome}</p>
+              <p>Bonus alla CA:{equip.shild[0].BonusCA}</p>
+              <p>Competenza richiesta: {traslateCompScudi(equip.shild[0].Competenza)}</p>
+              <p>fallimento incantesimi:{equip.shild[0].FallimentoIncantesimi}%</p>
+              <p>penalità alla prova{equip.shild[0].PenalitaProva}</p>
+            </div>
+          }
+          { equip.weapons &&
+            <div>
+              <h4>Armi</h4>
+              {equip.weapons.map((weapon)=><div>
+                <h5>Nome: {weapon.Nome}</h5>
+                <p>Dado: {weapon.Dado}</p>
+                <p>Critico: {weapon.Critico}</p>
+                <p>ModTiroColpire: {weapon.ModTiroColpire}</p>
+                <p>ModTiroDanni: {weapon.ModTiroDanni}</p>
+                <p>Gittata: {weapon.Gittata}</p>
+                <p>richiede CompetenzaArmiEsotiche: {weapon.CompetenzaArmiEsotiche?'si':'no'}</p>
+                <p>richiede CompetenzaArmiGuerra: {weapon.CompetenzaArmiGuerra?'si':'no'}</p>
+              </div>)}
+            </div>
+          }
+        </div>}
         </DialogContent>
         <DialogActions>
           <Button onClick={ props.handleClose} color="primary">
@@ -52,6 +86,23 @@ function EquipDialog (props) {
         </DialogActions>
       </Dialog>
     )
+}
+
+export const traslateCompArmature = (competenza)=>{
+	switch(competenza){
+		case 0: return 'nessuna'
+		case 1: return 'leggere'
+		case 2: return 'medie'
+		case 3: return 'pesanti'
+	}
+}
+
+export const traslateCompScudi = (competenza)=>{
+	switch(competenza){
+		case 0: return 'nessuna'
+		case 1: return 'piccoli'
+		case 2: return 'grandi'
+	}
 }
 
 export default EquipDialog;

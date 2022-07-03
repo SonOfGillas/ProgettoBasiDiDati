@@ -120,7 +120,7 @@ function Sheet() {
 	);
 }
 
-const traslateCompArmature = (competenza)=>{
+export const traslateCompArmature = (competenza)=>{
 	switch(competenza){
 		case 0: return 'nessuna'
 		case 1: return 'leggere'
@@ -129,7 +129,7 @@ const traslateCompArmature = (competenza)=>{
 	}
 }
 
-const traslateCompScudi = (competenza)=>{
+export const traslateCompScudi = (competenza)=>{
 	switch(competenza){
 		case 0: return 'nessuna'
 		case 1: return 'piccoli'
