@@ -52,7 +52,7 @@ function EquipDialog (props) {
             <p>penalità alla prova{equip.armor[0].PenalitaProva}</p>
           </div>
           }
-          { equip.shild &&
+          { equip.shild && equip.shild[0] &&
             <div>
               <h4>Scudo</h4>
               <p>Nome: {equip.shild[0].Nome}</p>

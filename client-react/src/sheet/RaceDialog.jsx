@@ -10,7 +10,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 function RaceDialog (props) {
 
-	const [ race, setRace ] = useState(false);
+	const [ raceInfo, setRaceInfo ] = useState(false);
 
 	const getRaceApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/sheet/race';
 	const getRace = useCallback(
@@ -21,7 +21,7 @@ function RaceDialog (props) {
 				.post(getRaceApi, data)
 				.then((response) => {
 					console.log(response);
-					setRace(response.data.body);
+					setRaceInfo(response.data.body);
 				})
 				.catch((error) => {
 					console.log(error);
@@ -41,9 +41,18 @@ function RaceDialog (props) {
             Dettaglio Razza
         </DialogTitle>
         <DialogContent> 
-        {race && <div>
-            
+        {raceInfo.race && <div>
+          <h4>{raceInfo.race[0].Nome}</h4>
+          <p>Taglia:{traslateSize(raceInfo.race[0].Taglia)}</p>
+          <p>Velocita:{raceInfo.race[0].Velocita}m</p>
+          <p>ModCarisma:{raceInfo.race[0].ModCarisma}</p>
+          <p>ModCostituzione:{raceInfo.race[0].ModCostituzione}</p>
+          <p>ModDestrezza:{raceInfo.race[0].ModDestrezza}</p>
+          <p>ModForza:{raceInfo.race[0].ModForza}</p>
+          <p>ModIntelligenza:{raceInfo.race[0].ModIntelligenza}</p>
+          <p>ModSaggezza:{raceInfo.race[0].ModSaggezza}</p>
         </div>}
+        { raceInfo.raceTraits  && <h4>Tratti raziali</h4>}
         </DialogContent>
         <DialogActions>
           <Button onClick={ props.handleClose} color="primary">
@@ -52,6 +61,29 @@ function RaceDialog (props) {
         </DialogActions>
       </Dialog>
     )
+}
+
+const traslateSize = (taglia) => {
+  switch(taglia){
+    case -4:
+      return 'Piccolissima'
+    case -3:
+      return 'Minuta'
+    case -2:
+      return 'Minuscola'
+    case -1:
+      return 'Piccola'
+    case 0:
+      return 'Media'
+    case 1:
+      return 'Grande'
+    case 2:
+      return 'Enorme'
+    case 3:
+        return 'Mastodontica'
+    case 4:
+      return 'Colossale'
+  }
 }
 
 export default RaceDialog;
