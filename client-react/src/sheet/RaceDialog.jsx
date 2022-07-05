@@ -52,7 +52,13 @@ function RaceDialog (props) {
           <p>ModIntelligenza:{raceInfo.race[0].ModIntelligenza}</p>
           <p>ModSaggezza:{raceInfo.race[0].ModSaggezza}</p>
         </div>}
-        { raceInfo.raceTraits  && <h4>Tratti raziali</h4>}
+        {raceInfo.raceTraits && <div>
+          <h4>Tratti Raziali</h4>
+          {raceInfo.raceTraits.map((trait) => <div>
+            <h5>Nome:{trait.Nome}</h5>
+            <p>Descrizione:{trait.Descrizione}</p>
+          </div>)}
+        </div>}
         </DialogContent>
         <DialogActions>
           <Button onClick={ props.handleClose} color="primary">
