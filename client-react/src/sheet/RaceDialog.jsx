@@ -54,7 +54,7 @@ function RaceDialog (props) {
         </div>}
         {raceInfo.raceTraits && <div>
           <h4>Tratti Raziali</h4>
-          {raceInfo.raceTraits.map((trait) => <div>
+          {raceInfo.raceTraits.map((trait,index) => <div key={index}>
             <h5>Nome:{trait.Nome}</h5>
             <p>Descrizione:{trait.Descrizione}</p>
           </div>)}

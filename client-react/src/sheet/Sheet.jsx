@@ -89,9 +89,11 @@ function Sheet() {
 						<h5>Competenze</h5>
 						<p>Armature:{traslateCompArmature(oc.CompArmature)} Scudi:{traslateCompScudi(oc.CompScudi)}</p>
 						<p>ArmiDaGuerra:{oc.CompeArmiGuerra?'si':'no'} ArmiEsotiche:{oc.CompeArmiEsotiche?'si':'no'}</p>
-						<h5>Razza</h5>
-						<div style={{ display: 'flex', flexDirection: 'row' }}>Razza: {oc.Razza} <Button title='show' onClick={OpenRaceDialog} /></div>
-						<h5>Equippagiamento</h5>
+						<h4>Caratteristiche</h4>
+						<p>Forza:{oc.Forza} Destrezza:{oc.Destrezza} Costituzione:{oc.Costituzione}</p>
+						<p>Intelligenza:{oc.Intelligenza} Saggezza:{oc.Saggezza} Carisma:{oc.Carisma}</p>
+						<h4>Tiri salvezza</h4>
+						<p>Tempra:{oc.Tempra} Riflessi:{oc.Riflessi} Volonta:{oc.Volonta}</p><h5>Equippagiamento</h5>
 						<div style={{ display: 'flex', flexDirection: 'row' }}>
 							Imbraccia: {oc.Imbraccia??'nulla'} 
 							{oc.Imbraccia!=null && <Button title='show' onClick={OpenEquipDialog}/>}
@@ -106,13 +108,13 @@ function Sheet() {
 				<div style={{ display: 'flex', flexDirection: 'column', flexGrow: 3, alignItems: 'center' }}>
 					<h4>Classi</h4>
 					{classes && classes.map((item,index)=><ClassListElement key={index} classe={item} />)}
-					{ oc && <di>
-						<h4>Caratteristiche</h4>
-					<p>Forza:{oc.Forza} Destrezza:{oc.Destrezza} Costituzione:{oc.Costituzione}</p>
-					<p>Intelligenza:{oc.Intelligenza} Saggezza:{oc.Saggezza} Carisma:{oc.Carisma}</p>
-					<h4>Tiri salvezza</h4>
-					<p>Tempra:{oc.Tempra} Riflessi:{oc.Riflessi} Volonta:{oc.Volonta}</p>
-						</di>}
+					
+					
+					{ oc && <div>
+						<h5>Razza</h5>
+						<div style={{ display: 'flex', flexDirection: 'row' }}>Razza: {oc.Razza} <Button title='show' onClick={OpenRaceDialog} /></div>
+						<h5>Talenti</h5>
+						</div>}
 					
 				</div>	
 				<div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }} />

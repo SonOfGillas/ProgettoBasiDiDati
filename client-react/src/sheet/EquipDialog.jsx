@@ -65,7 +65,7 @@ function EquipDialog (props) {
           { equip.weapons &&
             <div>
               <h4>Armi</h4>
-              {equip.weapons.map((weapon)=><div>
+              {equip.weapons.map((weapon,index)=><div key={index}>
                 <h5>Nome: {weapon.Nome}</h5>
                 <p>Dado: {weapon.Dado}</p>
                 <p>Critico: {weapon.Critico}</p>
