@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import ClassListElement from './ClassListElement';
 import EquipDialog from './EquipDialog';
 import RaceDialog from './RaceDialog';
+import FeatsDialog from './FeatDIalog';
 
 function Sheet() {
 	let navigate = useNavigate();
@@ -70,7 +71,12 @@ function Sheet() {
 	},[])
 
 	const OpenEquipDialog = useCallback(()=>setOpenEquip(true),[]);
+	const CloseEquipDialog = useCallback(()=>setOpenEquip(false),[]);
 	const OpenRaceDialog = useCallback(()=>setOpenRace(true),[]);
+	const CloseRaceDialog = useCallback(()=>setOpenRace(false),[]);
+	const OpenFeatsDialog = useCallback(()=>setOpenFeats(true),[]);
+	const CloseFeatsDialog = useCallback(()=>setOpenFeats(false),[]);
+
 
 	return (
 		<div style={styles.sheet} className='home'>
@@ -107,20 +113,22 @@ function Sheet() {
 				</div>
 				<div style={{ display: 'flex', flexDirection: 'column', flexGrow: 3, alignItems: 'center' }}>
 					<h4>Classi</h4>
-					{classes && classes.map((item,index)=><ClassListElement key={index} classe={item} />)}
+					{classes && classes.map((item,index)=><ClassListElement key={index} classe={item} CodPer={params.CodPer} />)}
 					
 					
 					{ oc && <div>
 						<h5>Razza</h5>
 						<div style={{ display: 'flex', flexDirection: 'row' }}>Razza: {oc.Razza} <Button title='show' onClick={OpenRaceDialog} /></div>
 						<h5>Talenti</h5>
+						<Button title='show' onClick={OpenFeatsDialog}/>
 						</div>}
 					
 				</div>	
 				<div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }} />
 			</div>
-			{oc && <RaceDialog open={openRace} handleClose={()=>setOpenRace(false)}  Razza={oc.Razza}/>}
-			{oc && <EquipDialog open={openEquip} handleClose={()=>setOpenEquip(false)} Veste={oc.Veste} Imbraccia={oc.Imbraccia} CodPer={params.CodPer}/> }
+			{oc && <RaceDialog open={openRace} handleClose={CloseRaceDialog}  Razza={oc.Razza}/>}
+			{oc && <EquipDialog open={openEquip} handleClose={CloseEquipDialog} Veste={oc.Veste} Imbraccia={oc.Imbraccia} CodPer={params.CodPer}/> }
+			{oc && <FeatsDialog open={openFeats} handleClose={CloseFeatsDialog} CodPer={oc.CodPer}/>}
 		</div>
 	);
 }
