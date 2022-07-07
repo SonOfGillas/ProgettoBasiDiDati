@@ -5,9 +5,9 @@ import { useParams } from 'react-router-dom';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import ClassListElement from './ClassListElement';
-import EquipDialog from './EquipDialog';
-import RaceDialog from './RaceDialog';
-import FeatsDialog from './FeatDIalog';
+import EquipDialog from './ViewDialog/EquipDialog';
+import RaceDialog from './ViewDialog/RaceDialog';
+import FeatsDialog from './ViewDialog/FeatDIalog';
 
 function Sheet() {
 	let navigate = useNavigate();

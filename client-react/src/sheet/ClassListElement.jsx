@@ -1,9 +1,9 @@
 import Button from '../components/Button';
-import ClassDialog from './ClassDialog';
+import ClassDialog from './ViewDialog/ClassDialog';
 import { useState,useCallback } from 'react';
-import BonusFeatsDialog from './BonusFeatDialog';
-import SpellDialog from './SpellDialog'
-import CapacityDialog from './CapacityDialog';
+import BonusFeatsDialog from './ViewDialog/BonusFeatDialog';
+import SpellDialog from './ViewDialog//SpellDialog'
+import CapacityDialog from './ViewDialog/CapacityDialog';
 
 function ClassListElement(props) {
 	const classe = props.classe;
