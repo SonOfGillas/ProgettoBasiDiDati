@@ -7,16 +7,16 @@ import Button from '@material-ui/core/Button';
 import { useState,useCallback,useEffect } from 'react';
 import axios from 'axios'
 
-function FeatsDialog (props) {
+function SpellDialog (props) {
 	const [ bonusFeats, setBonusFeats ] = useState();
 
-	const getBonusFeatsApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/sheet/class/bonusfeat';
-	const getBonusFeats = useCallback(
+	const getSpellApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/sheet/class/spell';
+	const getSpell = useCallback(
 		() => {
 			const data = { CodPer: props.CodPer, Classe: props.NomeClasse };
 
 			axios
-				.post(getBonusFeatsApi, data)
+				.post(getSpellApi, data)
 				.then((response) => {
 					console.log(response);
 					setBonusFeats(response.data.body);
@@ -30,14 +30,14 @@ function FeatsDialog (props) {
 	);
 
     useEffect(()=>{
-        getBonusFeats()
+        getSpell()
     },[])
 
 
     return(
         <Dialog open={props.open} onClose={ props.handleClose}>
         <DialogTitle>
-            Lista Talenti Bonus
+            Lista Spell
         </DialogTitle>
         <DialogContent> 
             {bonusFeats && bonusFeats.map((bonusFeat,index)=>
@@ -56,4 +56,4 @@ function FeatsDialog (props) {
     )
 }
 
-export default FeatsDialog;
+export default SpellDialog;

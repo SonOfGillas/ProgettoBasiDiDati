@@ -113,7 +113,7 @@ function Sheet() {
 				</div>
 				<div style={{ display: 'flex', flexDirection: 'column', flexGrow: 3, alignItems: 'center' }}>
 					<h4>Classi</h4>
-					{classes && classes.map((item,index)=><ClassListElement key={index} classe={item} CodPer={params.CodPer} />)}
+					{classes && classes.map((item,index)=><ClassListElement key={index} classe={item} CodPer={item.CodPer} />)}
 					
 					
 					{ oc && <div>
