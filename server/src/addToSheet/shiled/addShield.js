@@ -18,7 +18,7 @@ exports.handler = async (event) => {
               `UPDATE Personaggi
               SET Imbraccia = '`+event['Imbraccia']+`',
               WHERE CodPer = `+event['CodPer']+`
-              `
+              `;
 			
             db.connect();
 

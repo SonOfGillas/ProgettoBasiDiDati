@@ -24,7 +24,7 @@ exports.handler = async (event) => {
                 '`+event['NomeClasse']+`,
                 '`+event['NomeIncantesimo']+`
                 )
-              `
+              `;
 			
             db.connect();
 

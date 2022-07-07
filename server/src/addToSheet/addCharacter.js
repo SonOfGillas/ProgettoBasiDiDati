@@ -63,7 +63,7 @@ exports.handler = async (event) => {
                 `+event['CompScudi']+`,
                 `+event['CompArmiGuerra']+`,
                 `+event['CompeArmiEsotiche']+`,
-                );`
+                );`;
             
 			
             db.connect();

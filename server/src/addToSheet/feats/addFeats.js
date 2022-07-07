@@ -21,7 +21,7 @@ exports.handler = async (event) => {
                 ) VALUES (
                 `+event['CodPer']+`,
                 '`+event['NomeTalento']+`);
-              `
+              `;
 			
             db.connect();
 

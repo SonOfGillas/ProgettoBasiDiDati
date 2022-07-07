@@ -39,7 +39,7 @@ exports.handler = async (event) => {
                 `+event['DadoVita']+`,
                 `+event['CompArmature']+`,
                 `+event['CompScudi']+`,
-                `+event['CompArmiGuerra']+`);`
+                `+event['CompArmiGuerra']+`);`;
 			
             db.connect();
 

@@ -15,9 +15,15 @@ exports.handler = async (event) => {
 			});
 
 			const query =
-              `UPDATE Personaggi
-              SET Veste = '`+event['Veste']+`',
-              WHERE CodPer = `+event['CodPer']+`
+              `INSERT INTO TalentiBonus (
+                CodPer,
+                NomeClasse,
+                NomeTalento
+                ) VALUES (
+                `+event['CodPer']+`,
+                '`+event['NomeClasse']+`,
+                '`+event['NomeTalento']+`
+                )
               `;
 			
             db.connect();
