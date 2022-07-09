@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
+import AddOcDialog from '../sheet/AddDialog/AddOcDialog';
 
 function Home() {
 	let navigate = useNavigate();
@@ -11,6 +12,11 @@ function Home() {
 	console.log(params.email);
 
 	const [ characters, setCharacters ] = useState();
+	const [ addCharacter, setAddCharacter ] = useState();
+
+	const openCharacterDialog = useCallback(() => setAddCharacter(true), []);
+
+	const closeCharacterDialog = useCallback(() => setAddCharacter(false), []);
 
 	const getCharactersApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/home';
 
@@ -75,8 +81,9 @@ function Home() {
 			<Button title='back' onClick={backToLogin} />
 			<div style={{ display: 'flex', justifyContent: 'center' }}>{characters !== undefined && <OCs />}</div>
 			<div style={{ display: 'flex', justifyContent: 'center' }}>
-				<Button title='New Character' />
+				<Button title='New Character' onClick={openCharacterDialog} />
 			</div>
+			<AddOcDialog open={addCharacter} handleClose={closeCharacterDialog} email={params.email} />
 		</div>
 	);
 }
