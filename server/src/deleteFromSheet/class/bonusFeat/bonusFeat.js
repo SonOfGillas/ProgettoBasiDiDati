@@ -15,10 +15,10 @@ exports.handler = async (event) => {
 			});
 
 			const query =
-              `Delete from CapacitaClasse where 
+              `Delete from TalentiBonus where 
                 CodPer=`+event['CodPer']+`
                 NomeClasse=`+event['NomeClasse']+`
-                NomeCapacita=`+event['NomeCapacita'];
+                NomeTalento=`+event['NomeTalento'];
 			
             db.connect();
 
