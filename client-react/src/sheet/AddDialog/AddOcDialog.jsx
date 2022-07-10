@@ -13,12 +13,12 @@ function AddOcDialog(props) {
 	const [ selectedrace, setSelectedRace ] = useState();
 	const [ nome, setNome ] = useState();
 	const [ allineamento, setAllineamento ] = useState();
-	const [ forza, setForza ] = useState();
-	const [ destrezza, setDestrezza ] = useState();
-	const [ costituzione, setCostituzione ] = useState();
-	const [ intelligenza, setIntelligenza ] = useState();
-	const [ saggezza, setSaggezza ] = useState();
-	const [ carisma, setCarisma ] = useState();
+	const [ forza, setForza ] = useState(10);
+	const [ destrezza, setDestrezza ] = useState(10);
+	const [ costituzione, setCostituzione ] = useState(10);
+	const [ intelligenza, setIntelligenza ] = useState(10);
+	const [ saggezza, setSaggezza ] = useState(10);
+	const [ carisma, setCarisma ] = useState(10);
 
 	const addOcApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/addtosheet';
 	const addOc = useCallback(

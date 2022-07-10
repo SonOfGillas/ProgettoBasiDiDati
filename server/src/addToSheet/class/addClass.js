@@ -14,32 +14,7 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const query =
-              `INSERT INTO Classi (
-                NomeClasse,
-                CodPer,
-                Livello,
-                BAB,
-                Tempra,
-                Riflessi,
-                Volonta,
-                DadoVita,
-                CompArmature,
-                CompScudi,
-                CompArmiGuerra,
-                CompeArmiEsotiche
-                ) VALUES (
-                '`+event['NomeClasse']+`',
-                `+event['CodPer']+`,
-                `+event['Livello']+`,
-                `+event['BAB']+`,
-                `+event['Tempra']+`,
-                `+event['Riflessi']+`,
-                `+event['Volonta']+`,
-                `+event['DadoVita']+`,
-                `+event['CompArmature']+`,
-                `+event['CompScudi']+`,
-                `+event['CompArmiGuerra']+`);`;
+			const query ="INSERT INTO Classi (NomeClasse,CodPer,Livello,BAB,Tempra,Riflessi,Volonta,DadoVita,CompArmature,CompScudi,CompArmiGuerra,CompArmiEsotiche) VALUES ('"+event['NomeClasse']+"',"+event['CodPer']+","+event['Livello']+","+event['BAB']+","+event['Tempra']+","+event['Riflessi']+","+event['Volonta']+","+event['DadoVita']+","+event['CompArmature']+","+event['CompScudi']+","+event['CompArmiGuerra']+","+event['CompArmiEsotiche']+")";
 			
             db.connect();
 

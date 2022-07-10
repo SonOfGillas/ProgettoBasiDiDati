@@ -12,11 +12,12 @@ import AddShieldDialog from './AddDialog/SetShiledDialog';
 import AddArmorDialog from './AddDialog/SetArmorDialog';
 import AddWeaponDialog from './AddDialog/AddWeaponDialog';
 import AddFeatDialog from './AddDialog/AddFeat';
+import AddClassDialog from './AddDialog/AddClass';
 
 function Sheet() {
 	let navigate = useNavigate();
 	let params = useParams();
-	console.log(params.email, params.CodPer);
+	//console.log(params.email, params.CodPer);
 
 	const backToHome = useCallback(
 		() => {
@@ -34,6 +35,7 @@ function Sheet() {
 	const [ openArmorDialog, setArmorDialog ] = useState(false);
 	const [ openWeaponDialog, setWeaponDialog ] = useState(false);
 	const [ openFeatDialog, setFeatDialog ] = useState(false);
+	const [ openClassDialog, setClassDialog ] = useState(false);
 
 	const getOCApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/sheet';
 	const getOC = useCallback(
@@ -92,6 +94,8 @@ function Sheet() {
 	const CloseWeaponDialog = useCallback(()=>setWeaponDialog(false),[]);
 	const OpenFeatDialog = useCallback(()=>setFeatDialog(true),[]);
 	const CloseFeatDialog = useCallback(()=>setFeatDialog(false),[]);
+	const OpenClassDialog = useCallback(()=>setClassDialog(true),[]);
+	const CloseClassDialog = useCallback(()=>setClassDialog(false),[]);
 
 
 	return (
@@ -136,6 +140,7 @@ function Sheet() {
 				<div style={{ display: 'flex', flexDirection: 'column', flexGrow: 3, alignItems: 'center' }}>
 					<h4>Classi</h4>
 					{classes && classes.map((item,index)=><ClassListElement key={index} classe={item} CodPer={item.CodPer} />)}
+					<Button title='aggiungi classe' onClick={OpenClassDialog}/>
 					
 					
 					{ oc && <div>
@@ -156,6 +161,7 @@ function Sheet() {
 			{oc && <AddArmorDialog open={openArmorDialog} handleClose={CloseArmorDialog} CodPer={oc.CodPer} />}
 			{oc && <AddWeaponDialog open={openWeaponDialog} handleClose={CloseWeaponDialog} CodPer={oc.CodPer} />}
 			{oc && <AddFeatDialog open={openFeatDialog} handleClose={CloseFeatDialog} CodPer={oc.CodPer}/>}
+			{oc && <AddClassDialog open={openClassDialog} handleClose={CloseClassDialog} CodPer={oc.CodPer}/>}
 		</div>
 	);
 }
