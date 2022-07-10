@@ -12,14 +12,14 @@ function AddSpellDialog(props) {
 	const [ spellList, setSpellList ] = useState();
 	const [ selectedSpell, setSelectedSpell ] = useState();
 
-	/*
+	
 	const addSpellApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/addtosheet/class/spell';
 	const addSpell = useCallback(
 		() => {
 			const data = {
 				CodPer: props.CodPer,
                 NomeClasse: props.NomeClasse,
-                NomeCapacita: selectedSpell!=null? selectedSpell.value:'',
+                NomeIncantesimo: selectedSpell!=null? selectedSpell.value:'',
 			};
 
 			axios
@@ -35,7 +35,7 @@ function AddSpellDialog(props) {
 		},
 		[ selectedSpell ]
 	);
-	*/
+	
 
 	const getSpellListApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/addtosheet/class/spell';
 	const getSpellList = useCallback(() => {
@@ -54,20 +54,22 @@ function AddSpellDialog(props) {
 
 	useEffect(
 		() => {
-			//getSpellList();
+			if(props.open){
+				getSpellList();
+			}
 		},
-		[ getSpellList ]
+		[ getSpellList,props ]
 	);
 
 	return (
 		<Dialog open={props.open} onClose={props.handleClose}>
 			<DialogTitle>Aggiungi Spell</DialogTitle>
 			<DialogContent>
-				<div style={{ display: 'flex', flexDirection: 'column', minHeight: 300 }}>
+				<div style={{ display: 'flex', flexDirection: 'column', minHeight: 300, minWidth: 200}}>
 					<label>Lista Spell</label>
 					{spellList != null && <Select value={selectedSpell} onChange={setSelectedSpell} options={spellList} />}
 				</div>
-				<Button onClick={getSpellList}>Aggiungi</Button>
+				<Button onClick={addSpell}>Aggiungi</Button>
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={props.handleClose} color='primary'>
