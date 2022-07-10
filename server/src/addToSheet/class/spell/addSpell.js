@@ -14,17 +14,7 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const query =
-              `INSERT INTO IncantesimiAppresi (
-                CodPer,
-                NomeClasse,
-                NomeIncantesimo
-                ) VALUES (
-                `+event['CodPer']+`,
-                '`+event['NomeClasse']+`,
-                '`+event['NomeIncantesimo']+`
-                )
-              `;
+			const query ="INSERT INTO IncantesimiAppresi (CodPer,NomeClasse,NomeIncantesimo) VALUES ("+event['CodPer']+",'"+event['NomeClasse']+"','"+event['NomeIncantesimo']+"')";
 			
             db.connect();
 
