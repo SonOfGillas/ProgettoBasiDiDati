@@ -14,11 +14,7 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const query =
-              `UPDATE Personaggi
-              SET Imbraccia = '`+event['Imbraccia']+`',
-              WHERE CodPer = `+event['CodPer']+`
-              `;
+			const query = "UPDATE Personaggi SET Imbraccia = '"+event['Imbraccia']+"' WHERE CodPer = '"+event['CodPer']+"'";
 			
             db.connect();
 

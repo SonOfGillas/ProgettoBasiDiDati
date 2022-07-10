@@ -16,7 +16,7 @@ function AddShieldDialog(props) {
 	const addArmor = useCallback(
 		() => {
 			const data = {
-				Imbraccia: selectedShield,
+				Imbraccia: selectedShield!=null? selectedShield.value:'',
 				CodPer: props.CodPer,
 			};
 
@@ -41,6 +41,8 @@ function AddShieldDialog(props) {
 			.then((response) => {
 				console.log(response);
 				const shieldOption = response.data.body.map((shield) => ({ value: shield.Nome, label: shield.Nome }));
+                shieldOption.push({value:'nulla', label:'nulla'});
+                console.log(shieldOption);
 				setShieldList(shieldOption);
 			})
 			.catch((error) => {
@@ -64,7 +66,7 @@ function AddShieldDialog(props) {
 					<label>Lista Scudi</label>
 					{shieldList != null && <Select value={selectedShield} onChange={setSelectedShield} options={shieldList} />}
 				</div>
-				<Button onClick={addArmor}>imposta armatura</Button>
+				<Button onClick={addArmor}>imposta scudo</Button>
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={props.handleClose} color='primary'>

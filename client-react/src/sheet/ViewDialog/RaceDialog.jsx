@@ -41,7 +41,7 @@ function RaceDialog (props) {
             Dettaglio Razza
         </DialogTitle>
         <DialogContent> 
-        {raceInfo.race && <div>
+        {raceInfo && raceInfo.race && <div>
           <h4>{raceInfo.race[0].Nome}</h4>
           <p>Taglia:{traslateSize(raceInfo.race[0].Taglia)}</p>
           <p>Velocita:{raceInfo.race[0].Velocita}m</p>
@@ -52,7 +52,7 @@ function RaceDialog (props) {
           <p>ModIntelligenza:{raceInfo.race[0].ModIntelligenza}</p>
           <p>ModSaggezza:{raceInfo.race[0].ModSaggezza}</p>
         </div>}
-        {raceInfo.raceTraits && <div>
+        {raceInfo && raceInfo.raceTraits && <div>
           <h4>Tratti Raziali</h4>
           {raceInfo.raceTraits.map((trait,index) => <div key={index}>
             <h5>Nome:{trait.Nome}</h5>

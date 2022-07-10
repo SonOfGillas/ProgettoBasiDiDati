@@ -107,7 +107,7 @@ function Sheet() {
 						<div style={{ display: 'flex', flexDirection: 'row' }}>
 							Imbraccia: {oc.Imbraccia??'nulla'} 
 							{oc.Imbraccia!=null && <Button title='show' onClick={OpenEquipDialog}/>}
-							<Button title='add' onClick={OpenShieldDialog}/>
+							<Button title='imposta' onClick={OpenShieldDialog}/>
 						</div>
 						<div style={{ display: 'flex', flexDirection: 'row' }}>
 							Veste: {oc.Veste??'nulla'}
