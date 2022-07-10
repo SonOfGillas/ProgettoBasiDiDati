@@ -8,20 +8,20 @@ import { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 
-function AddArmorDialog(props) {
-	const [ armorList, setArmorList ] = useState();
-	const [ selectedArmor, setSelectedArmor ] = useState();
+function AddWeaponDialog(props) {
+	const [ weaponList, setWeaponList ] = useState();
+	const [ selectedWeapon, setSelectedWeapon ] = useState();
 
-	const addArmorApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/addtosheet/armor';
-	const addArmor = useCallback(
+	const addWeaponApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/addtosheet/weapon';
+	const addWeapon = useCallback(
 		() => {
 			const data = {
-				Veste: selectedArmor!=null? selectedArmor.value:'',
+				Nome: selectedWeapon!=null? selectedWeapon.value:'',
 				CodPer: props.CodPer,
 			};
 
 			axios
-				.post(addArmorApi, data)
+				.post(addWeaponApi, data)
 				.then((response) => {
 					console.log(response);
 					props.handleClose();
@@ -31,18 +31,17 @@ function AddArmorDialog(props) {
 					alert(error);
 				});
 		},
-		[ selectedArmor ]
+		[ selectedWeapon ]
 	);
 
-	const getArmorListApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/addtosheet/armor';
-	const getArmorList = useCallback(() => {
+	const getWeaponListApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/addtosheet/weapon';
+	const getWeaponList = useCallback(() => {
 		axios
-			.get(getArmorListApi)
+			.get(getWeaponListApi)
 			.then((response) => {
 				console.log(response);
-				const armorOption = response.data.body.map((armor) => ({ value: armor.Nome, label: armor.Nome }));
-                armorOption.push({value:'nulla', label:'nulla'});
-				setArmorList(armorOption);
+				const weaponOption = response.data.body.map((weapon) => ({ value: weapon.Nome, label: weapon.Nome }));
+				setWeaponList(weaponOption);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -52,20 +51,20 @@ function AddArmorDialog(props) {
 
 	useEffect(
 		() => {
-			getArmorList();
+			getWeaponList();
 		},
-		[ getArmorList ]
+		[ getWeaponList ]
 	);
 
 	return (
 		<Dialog open={props.open} onClose={props.handleClose}>
-			<DialogTitle>Imposta Armatura</DialogTitle>
+			<DialogTitle>Aggiungi Arma</DialogTitle>
 			<DialogContent>
 				<div style={{ display: 'flex', flexDirection: 'column', minHeight: 200 }}>
-					<label>Lista Armature</label>
-					{armorList != null && <Select value={selectedArmor} onChange={setSelectedArmor} options={armorList} />}
+					<label>Lista Armi</label>
+					{weaponList != null && <Select value={selectedWeapon} onChange={setSelectedWeapon} options={weaponList} />}
 				</div>
-				<Button onClick={addArmor}>imposta armatura</Button>
+				<Button onClick={addWeapon}>Aggiungi</Button>
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={props.handleClose} color='primary'>
@@ -76,4 +75,4 @@ function AddArmorDialog(props) {
 	);
 }
 
-export default AddArmorDialog;
+export default AddWeaponDialog;

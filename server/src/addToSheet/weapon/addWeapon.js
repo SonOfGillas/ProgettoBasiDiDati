@@ -14,16 +14,9 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const query =
-              `INSERT INTO  Equipaggiamento(
-                CodPer,
-                Nome
-                ) VALUES (
-                `+event['CodPer']+`,
-                '`+event['Nome']+`);
-              `;
+			const query = "INSERT INTO  Equipaggiamento(CodPer,Nome) VALUES ("+event['CodPer']+",'"+event['Nome']+"');"
 			
-            db.connect();
+      db.connect();
 
 			db.query(query, (err, result) => {
 				if (err) throw err;

@@ -10,6 +10,7 @@ import RaceDialog from './ViewDialog/RaceDialog';
 import FeatsDialog from './ViewDialog/FeatDIalog';
 import AddShieldDialog from './AddDialog/SetShiledDialog';
 import AddArmorDialog from './AddDialog/SetArmorDialog';
+import AddWeaponDialog from './AddDialog/AddWeaponDialog';
 
 function Sheet() {
 	let navigate = useNavigate();
@@ -30,6 +31,7 @@ function Sheet() {
 	const [ openEquip, setOpenEquip ] = useState(false);
 	const [ openShieldDialog, setShieldDialog ] = useState(false);
 	const [ openArmorDialog, setArmorDialog ] = useState(false);
+	const [ openWeaponDialog, setWeaponDialog ] = useState(false);
 
 	const getOCApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/sheet';
 	const getOC = useCallback(
@@ -84,6 +86,8 @@ function Sheet() {
 	const CloseShieldDialog = useCallback(()=>setShieldDialog(false),[]);
 	const OpenArmorDialog = useCallback(()=>setArmorDialog(true),[]);
 	const CloseArmorDialog = useCallback(()=>setArmorDialog(false),[]);
+	const OpenWeaponDialog = useCallback(()=>setWeaponDialog(true),[]);
+	const CloseWeaponDialog = useCallback(()=>setWeaponDialog(false),[]);
 
 
 	return (
@@ -118,7 +122,11 @@ function Sheet() {
 							{oc.Veste!=null && <Button title='show' onClick={OpenEquipDialog} />}
 							<Button title='imposta' onClick={OpenArmorDialog}/>
 						</div>
-						<div style={{ display: 'flex', flexDirection: 'row' }}>Armi {oc.Armi} <Button title='show' onClick={OpenEquipDialog} /></div>
+						<div style={{ display: 'flex', flexDirection: 'row' }}>
+							Armi {oc.Armi}
+							<Button title='show' onClick={OpenEquipDialog} />
+							<Button title='aggiungi' onClick={OpenWeaponDialog}/>
+						</div>
 					</div>}
 				</div>
 				<div style={{ display: 'flex', flexDirection: 'column', flexGrow: 3, alignItems: 'center' }}>
@@ -141,6 +149,7 @@ function Sheet() {
 			{oc && <FeatsDialog open={openFeats} handleClose={CloseFeatsDialog} CodPer={oc.CodPer}/>}
 			{oc && <AddShieldDialog open={openShieldDialog} handleClose={CloseShieldDialog} CodPer={oc.CodPer} />}
 			{oc && <AddArmorDialog open={openArmorDialog} handleClose={CloseArmorDialog} CodPer={oc.CodPer} />}
+			{oc && <AddWeaponDialog open={openWeaponDialog} handleClose={CloseWeaponDialog} CodPer={oc.CodPer} />}
 		</div>
 	);
 }
