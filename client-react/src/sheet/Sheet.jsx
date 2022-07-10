@@ -9,6 +9,7 @@ import EquipDialog from './ViewDialog/EquipDialog';
 import RaceDialog from './ViewDialog/RaceDialog';
 import FeatsDialog from './ViewDialog/FeatDIalog';
 import AddShieldDialog from './AddDialog/SetShiledDialog';
+import AddArmorDialog from './AddDialog/SetArmorDialog';
 
 function Sheet() {
 	let navigate = useNavigate();
@@ -28,6 +29,7 @@ function Sheet() {
 	const [ openRace, setOpenRace ] = useState();
 	const [ openEquip, setOpenEquip ] = useState(false);
 	const [ openShieldDialog, setShieldDialog ] = useState(false);
+	const [ openArmorDialog, setArmorDialog ] = useState(false);
 
 	const getOCApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/sheet';
 	const getOC = useCallback(
@@ -80,6 +82,8 @@ function Sheet() {
 	const CloseFeatsDialog = useCallback(()=>setOpenFeats(false),[]);
 	const OpenShieldDialog = useCallback(()=>setShieldDialog(true),[]);
 	const CloseShieldDialog = useCallback(()=>setShieldDialog(false),[]);
+	const OpenArmorDialog = useCallback(()=>setArmorDialog(true),[]);
+	const CloseArmorDialog = useCallback(()=>setArmorDialog(false),[]);
 
 
 	return (
@@ -112,6 +116,7 @@ function Sheet() {
 						<div style={{ display: 'flex', flexDirection: 'row' }}>
 							Veste: {oc.Veste??'nulla'}
 							{oc.Veste!=null && <Button title='show' onClick={OpenEquipDialog} />}
+							<Button title='imposta' onClick={OpenArmorDialog}/>
 						</div>
 						<div style={{ display: 'flex', flexDirection: 'row' }}>Armi {oc.Armi} <Button title='show' onClick={OpenEquipDialog} /></div>
 					</div>}
@@ -135,6 +140,7 @@ function Sheet() {
 			{oc && <EquipDialog open={openEquip} handleClose={CloseEquipDialog} Veste={oc.Veste} Imbraccia={oc.Imbraccia} CodPer={params.CodPer}/> }
 			{oc && <FeatsDialog open={openFeats} handleClose={CloseFeatsDialog} CodPer={oc.CodPer}/>}
 			{oc && <AddShieldDialog open={openShieldDialog} handleClose={CloseShieldDialog} CodPer={oc.CodPer} />}
+			{oc && <AddArmorDialog open={openArmorDialog} handleClose={CloseArmorDialog} CodPer={oc.CodPer} />}
 		</div>
 	);
 }

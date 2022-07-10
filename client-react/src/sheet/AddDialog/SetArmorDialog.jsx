@@ -8,15 +8,15 @@ import { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 
-function AddShieldDialog(props) {
-	const [ shieldList, setShieldList ] = useState();
-	const [ selectedShield, setSelectedShield ] = useState();
+function AddArmorDialog(props) {
+	const [ armorList, setArmorList ] = useState();
+	const [ selectedArmor, setSelectedArmor ] = useState();
 
-	const addArmorApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/addtosheet/shield';
+	const addArmorApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/addtosheet/armor';
 	const addArmor = useCallback(
 		() => {
 			const data = {
-				Imbraccia: selectedShield!=null? selectedShield.value:'',
+				Veste: selectedArmor!=null? selectedArmor.value:'',
 				CodPer: props.CodPer,
 			};
 
@@ -31,18 +31,18 @@ function AddShieldDialog(props) {
 					alert(error);
 				});
 		},
-		[ selectedShield ]
+		[ selectedArmor ]
 	);
 
-	const getShieldListApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/addtosheet/shield';
-	const getShieldList = useCallback(() => {
+	const getArmorListApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/addtosheet/armor';
+	const getArmorList = useCallback(() => {
 		axios
-			.get(getShieldListApi)
+			.get(getArmorListApi)
 			.then((response) => {
 				console.log(response);
-				const shieldOption = response.data.body.map((shield) => ({ value: shield.Nome, label: shield.Nome }));
-                shieldOption.push({value:'nulla', label:'nulla'});
-				setShieldList(shieldOption);
+				const armorOption = response.data.body.map((armor) => ({ value: armor.Nome, label: armor.Nome }));
+                armorOption.push({value:'nulla', label:'nulla'});
+				setArmorList(armorOption);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -52,20 +52,20 @@ function AddShieldDialog(props) {
 
 	useEffect(
 		() => {
-			getShieldList();
+			getArmorList();
 		},
-		[ getShieldList ]
+		[ getArmorList ]
 	);
 
 	return (
 		<Dialog open={props.open} onClose={props.handleClose}>
-			<DialogTitle>Imposta Scudo</DialogTitle>
+			<DialogTitle>Imposta Armatura</DialogTitle>
 			<DialogContent>
 				<div style={{ display: 'flex', flexDirection: 'column', minHeight: 200 }}>
 					<label>Lista Scudi</label>
-					{shieldList != null && <Select value={selectedShield} onChange={setSelectedShield} options={shieldList} />}
+					{armorList != null && <Select value={selectedArmor} onChange={setSelectedArmor} options={armorList} />}
 				</div>
-				<Button onClick={addArmor}>imposta scudo</Button>
+				<Button onClick={addArmor}>imposta armatura</Button>
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={props.handleClose} color='primary'>
@@ -76,4 +76,4 @@ function AddShieldDialog(props) {
 	);
 }
 
-export default AddShieldDialog;
+export default AddArmorDialog;
