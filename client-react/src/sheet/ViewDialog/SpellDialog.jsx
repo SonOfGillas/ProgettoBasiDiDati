@@ -30,8 +30,10 @@ function SpellDialog (props) {
 	);
 
     useEffect(()=>{
-        getSpell()
-    },[])
+        if(props.open){
+            getSpell()
+        }
+    },[getSpell,props])
 
 
     return(

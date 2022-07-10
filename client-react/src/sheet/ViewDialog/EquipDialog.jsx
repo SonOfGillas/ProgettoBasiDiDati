@@ -32,8 +32,10 @@ function EquipDialog (props) {
 	);
 
     useEffect(()=>{
+      if(props.open){
         getEquip()
-    },[])
+      }
+    },[getEquip, props])
 
     return(
         <Dialog open={props.open} onClose={ props.handleClose}>

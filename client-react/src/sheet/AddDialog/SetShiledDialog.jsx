@@ -52,9 +52,11 @@ function AddShieldDialog(props) {
 
 	useEffect(
 		() => {
-			getShieldList();
+			if(props.open){
+				getShieldList();
+			}
 		},
-		[ getShieldList ]
+		[ getShieldList , props]
 	);
 
 	return (

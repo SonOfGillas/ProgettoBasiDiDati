@@ -52,9 +52,11 @@ function AddCapacityDialog(props) {
 
 	useEffect(
 		() => {
-			getCapacityList();
+			if(props.open){
+				getCapacityList();
+			}
 		},
-		[ getCapacityList ]
+		[ getCapacityList , props]
 	);
 
 	return (

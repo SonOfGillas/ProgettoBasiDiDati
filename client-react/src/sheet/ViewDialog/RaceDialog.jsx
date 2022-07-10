@@ -32,8 +32,10 @@ function RaceDialog (props) {
 	);
 
     useEffect(()=>{
+      if(props.open){
         getRace()
-    },[])
+      }
+    },[getRace, props])
 
     return(
         <Dialog open={props.open} onClose={ props.handleClose}>

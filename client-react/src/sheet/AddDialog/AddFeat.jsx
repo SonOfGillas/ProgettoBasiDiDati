@@ -51,9 +51,11 @@ function AddFeatDialog(props) {
 
 	useEffect(
 		() => {
-			getFeatList();
+			if(props.open){
+				getFeatList();
+			}
 		},
-		[ getFeatList ]
+		[ getFeatList, props ]
 	);
 
 	return (

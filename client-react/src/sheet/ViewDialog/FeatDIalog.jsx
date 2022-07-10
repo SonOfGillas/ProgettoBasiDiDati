@@ -31,8 +31,10 @@ function BonusFeatsDialog (props) {
 	);
 
     useEffect(()=>{
-        getFeats()
-    },[])
+        if(props.open){
+            getFeats()
+        }
+    },[getFeats, props])
 
 
     return(

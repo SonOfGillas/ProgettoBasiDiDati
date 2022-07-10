@@ -52,9 +52,11 @@ function AddArmorDialog(props) {
 
 	useEffect(
 		() => {
-			getArmorList();
+			if(props.open){
+				getArmorList();
+			}
 		},
-		[ getArmorList ]
+		[ getArmorList, props ]
 	);
 
 	return (

@@ -51,9 +51,11 @@ function AddWeaponDialog(props) {
 
 	useEffect(
 		() => {
-			getWeaponList();
+			if(props.open){
+				getWeaponList();
+			}
 		},
-		[ getWeaponList ]
+		[ getWeaponList, props ]
 	);
 
 	return (

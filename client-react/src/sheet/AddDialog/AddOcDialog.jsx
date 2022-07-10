@@ -67,9 +67,11 @@ function AddOcDialog(props) {
 
 	useEffect(
 		() => {
-			getRaceList();
+			if(props.open){
+				getRaceList();
+			}
 		},
-		[ getRaceList ]
+		[ getRaceList, props ]
 	);
 
 	return (

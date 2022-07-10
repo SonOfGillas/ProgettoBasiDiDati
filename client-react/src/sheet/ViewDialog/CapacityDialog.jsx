@@ -30,8 +30,10 @@ function CapacityDialog (props) {
 	);
 
     useEffect(()=>{
-        getCapacity()
-    },[])
+        if(props.open){
+            getCapacity()
+        }
+    },[getCapacity, props])
 
 
     return(
