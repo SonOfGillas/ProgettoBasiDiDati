@@ -20,12 +20,20 @@ function AddOcDialog(props) {
 	const [ saggezza, setSaggezza ] = useState();
 	const [ carisma, setCarisma ] = useState();
 
-	const addOcApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/sheet/class/bonusfeat';
+	const addOcApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/addtosheet';
 	const addOc = useCallback(
 		() => {
 			const data = {
-				CodPer: props.CodPer,
-				Classe: props.NomeClasse
+				Nome: nome,
+				EmailUser: props.email,
+				Razza: selectedrace != null ? selectedrace.value : 'umano',
+				Allineamento: allineamento,
+				Forza: forza,
+				Destrezza: destrezza,
+				Costituzione: costituzione,
+				Intelligenza: intelligenza,
+				Saggezza: saggezza,
+				Carisma: carisma
 			};
 
 			axios
@@ -39,7 +47,7 @@ function AddOcDialog(props) {
 					alert(error);
 				});
 		},
-		[ props ]
+		[ allineamento, carisma, costituzione, destrezza, forza, intelligenza, nome, props, saggezza, selectedrace ]
 	);
 
 	const getRaceListApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/addtosheet/race';
@@ -59,7 +67,6 @@ function AddOcDialog(props) {
 
 	useEffect(
 		() => {
-			console.log('get races');
 			getRaceList();
 		},
 		[ getRaceList ]
@@ -72,7 +79,7 @@ function AddOcDialog(props) {
 				<div style={{ display: 'flex', flexDirection: 'column' }}>
 					<label>Nome</label>
 					<input type='text' value={nome} onChange={(e) => setNome(e.target.value)} />
-					{raceList && <Select value={selectedrace} onChange={setSelectedRace} options={raceList} />}
+					{raceList != null && <Select value={selectedrace} onChange={setSelectedRace} options={raceList} />}
 					<label>Allineamento</label>
 					<input type='text' value={allineamento} onChange={(e) => setAllineamento(e.target.value)} />
 					<label>Forza</label>
@@ -88,7 +95,7 @@ function AddOcDialog(props) {
 					<label>Carisma</label>
 					<input type='text' value={carisma} onChange={(e) => setCarisma(e.target.value)} />
 				</div>
-				<Button title='Crea Personaggio' onClick={addOc} />
+				<Button onClick={addOc}>Crea Personaggio</Button>
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={props.handleClose} color='primary'>
