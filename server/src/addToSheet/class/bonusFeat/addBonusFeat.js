@@ -14,7 +14,7 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const query ="INSERT INTO TalentiBonus (CodPer,NomeClasse,NomeTalento) VALUES ("+event['CodPer']+",'"+event['NomeClasse']+",'"+event['NomeTalento']+")";
+			const query ="INSERT INTO TalentiBonus (CodPer,NomeClasse,NomeTalento) VALUES ("+event['CodPer']+",'"+event['NomeClasse']+"','"+event['NomeTalento']+"')";
 			
             db.connect();
 
