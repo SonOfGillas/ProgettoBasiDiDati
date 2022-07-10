@@ -49,8 +49,6 @@ function AddClassDialog(props) {
                 CompArmiEsotiche:compArmiEsotiche!=null? compArmiEsotiche.value:''
 			};
 
-			console.log(data)
-
 			axios
 				.post(addClassApi, data)
 				.then((response) => {

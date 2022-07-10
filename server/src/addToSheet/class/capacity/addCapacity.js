@@ -14,17 +14,7 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const query =
-              `INSERT INTO CapacitaClasse (
-                CodPer,
-                NomeClasse,
-                NomeCapacita
-                ) VALUES (
-                `+event['CodPer']+`,
-                '`+event['NomeClasse']+`,
-                '`+event['NomeCapacita']+`
-                )
-              `;
+			const query ="INSERT INTO CapacitaClasse (CodPer,NomeClasse,NomeCapacita) VALUES ("+event['CodPer']+",'"+event['NomeClasse']+"','"+event['NomeCapacita']+"')";
 			
             db.connect();
 
