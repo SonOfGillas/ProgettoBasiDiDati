@@ -8,6 +8,7 @@ import ClassListElement from './ClassListElement';
 import EquipDialog from './ViewDialog/EquipDialog';
 import RaceDialog from './ViewDialog/RaceDialog';
 import FeatsDialog from './ViewDialog/FeatDIalog';
+import AddShieldDialog from './AddDialog/SetShiledDialog';
 
 function Sheet() {
 	let navigate = useNavigate();
@@ -26,6 +27,7 @@ function Sheet() {
 	const [ openFeats, setOpenFeats ] = useState();
 	const [ openRace, setOpenRace ] = useState();
 	const [ openEquip, setOpenEquip ] = useState(false);
+	const [ openShieldDialog, setShieldDialog ] = useState(false);
 
 	const getOCApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/sheet';
 	const getOC = useCallback(
@@ -76,6 +78,8 @@ function Sheet() {
 	const CloseRaceDialog = useCallback(()=>setOpenRace(false),[]);
 	const OpenFeatsDialog = useCallback(()=>setOpenFeats(true),[]);
 	const CloseFeatsDialog = useCallback(()=>setOpenFeats(false),[]);
+	const OpenShieldDialog = useCallback(()=>setShieldDialog(true),[]);
+	const CloseShieldDialog = useCallback(()=>setShieldDialog(false),[]);
 
 
 	return (
@@ -103,6 +107,7 @@ function Sheet() {
 						<div style={{ display: 'flex', flexDirection: 'row' }}>
 							Imbraccia: {oc.Imbraccia??'nulla'} 
 							{oc.Imbraccia!=null && <Button title='show' onClick={OpenEquipDialog}/>}
+							<Button title='add' onClick={OpenShieldDialog}/>
 						</div>
 						<div style={{ display: 'flex', flexDirection: 'row' }}>
 							Veste: {oc.Veste??'nulla'}
@@ -129,6 +134,7 @@ function Sheet() {
 			{oc && <RaceDialog open={openRace} handleClose={CloseRaceDialog}  Razza={oc.Razza}/>}
 			{oc && <EquipDialog open={openEquip} handleClose={CloseEquipDialog} Veste={oc.Veste} Imbraccia={oc.Imbraccia} CodPer={params.CodPer}/> }
 			{oc && <FeatsDialog open={openFeats} handleClose={CloseFeatsDialog} CodPer={oc.CodPer}/>}
+			{oc && <AddShieldDialog open={openShieldDialog} handleClose={CloseShieldDialog} CodPer={oc.CodPer} />}
 		</div>
 	);
 }
