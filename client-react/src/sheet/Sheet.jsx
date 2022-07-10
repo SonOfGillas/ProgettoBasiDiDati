@@ -11,6 +11,7 @@ import FeatsDialog from './ViewDialog/FeatDIalog';
 import AddShieldDialog from './AddDialog/SetShiledDialog';
 import AddArmorDialog from './AddDialog/SetArmorDialog';
 import AddWeaponDialog from './AddDialog/AddWeaponDialog';
+import AddFeatDialog from './AddDialog/AddFeat';
 
 function Sheet() {
 	let navigate = useNavigate();
@@ -32,6 +33,7 @@ function Sheet() {
 	const [ openShieldDialog, setShieldDialog ] = useState(false);
 	const [ openArmorDialog, setArmorDialog ] = useState(false);
 	const [ openWeaponDialog, setWeaponDialog ] = useState(false);
+	const [ openFeatDialog, setFeatDialog ] = useState(false);
 
 	const getOCApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/sheet';
 	const getOC = useCallback(
@@ -88,6 +90,8 @@ function Sheet() {
 	const CloseArmorDialog = useCallback(()=>setArmorDialog(false),[]);
 	const OpenWeaponDialog = useCallback(()=>setWeaponDialog(true),[]);
 	const CloseWeaponDialog = useCallback(()=>setWeaponDialog(false),[]);
+	const OpenFeatDialog = useCallback(()=>setFeatDialog(true),[]);
+	const CloseFeatDialog = useCallback(()=>setFeatDialog(false),[]);
 
 
 	return (
@@ -139,6 +143,7 @@ function Sheet() {
 						<div style={{ display: 'flex', flexDirection: 'row' }}>Razza: {oc.Razza} <Button title='show' onClick={OpenRaceDialog} /></div>
 						<h5>Talenti</h5>
 						<Button title='show' onClick={OpenFeatsDialog}/>
+						<Button title='aggiungi' onClick={OpenFeatDialog}/>
 						</div>}
 					
 				</div>	
@@ -150,6 +155,7 @@ function Sheet() {
 			{oc && <AddShieldDialog open={openShieldDialog} handleClose={CloseShieldDialog} CodPer={oc.CodPer} />}
 			{oc && <AddArmorDialog open={openArmorDialog} handleClose={CloseArmorDialog} CodPer={oc.CodPer} />}
 			{oc && <AddWeaponDialog open={openWeaponDialog} handleClose={CloseWeaponDialog} CodPer={oc.CodPer} />}
+			{oc && <AddFeatDialog open={openFeatDialog} handleClose={CloseFeatDialog} CodPer={oc.CodPer}/>}
 		</div>
 	);
 }

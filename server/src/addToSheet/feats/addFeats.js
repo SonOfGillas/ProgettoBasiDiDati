@@ -14,16 +14,9 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const query =
-              `INSERT INTO  TalentiAppresi(
-                CodPer,
-                NomeTalento
-                ) VALUES (
-                `+event['CodPer']+`,
-                '`+event['NomeTalento']+`);
-              `;
+			const query ="INSERT INTO  TalentiAppresi(CodPer,NomeTalento) VALUES ("+event['CodPer']+",'"+event['NomeTalento']+"');"
 			
-            db.connect();
+      db.connect();
 
 			db.query(query, (err, result) => {
 				if (err) throw err;
