@@ -16,7 +16,6 @@ function ClassListElement(props) {
 	const [bonusFeatsDialog, setBonusFeatsDialog] = useState(false);
 	const [speelDialog, setSpeelDialog] = useState(false);
 	const [capacityDialog, setCapacityDialog] = useState(false);
-	const [addCapacityDialog, setAddCapacityDialog] = useState(false);
 	const [addSpellDialog, setAddSpellDialog] = useState(false);
 	const [addBonusFeatDialog, setAddBonusFeatDialog] = useState(false);
 
@@ -28,8 +27,6 @@ function ClassListElement(props) {
 	const closeSpeelDialog = useCallback(()=>setSpeelDialog(false));
 	const openCapacityDialog = useCallback(()=>setCapacityDialog(true));
 	const closeCapacityDialog = useCallback(()=>setCapacityDialog(false));
-	const openAddCapacityDialog = useCallback(()=>setAddCapacityDialog(true));
-	const closeAddCapacityDialog = useCallback(()=>setAddCapacityDialog(false));
 	const openAddSpellDialog = useCallback(()=>setAddSpellDialog(true));
 	const closeAddSpellDialog = useCallback(()=>setAddSpellDialog(false));
 	const openBonusFeatDialog = useCallback(()=>setAddBonusFeatDialog(true));
@@ -38,14 +35,13 @@ function ClassListElement(props) {
 	return (
 			<div style={{ display: 'flex',flexDirection:'column', border:5, borderStyle:'solid',padding:30, marginBottom:10 }}>
 				<div style={{display:'flex', flexDirection:'row'}}><h4>{classe.NomeClasse} livello {classe.Livello}</h4><Button title='show' onClick={openClassDetailDialog} /></div>	
-				<div style={{display:'flex', flexDirection:'row'}}>capacita di classe <Button title='show' onClick={openCapacityDialog} /><Button title='aggiungi' onClick={openAddCapacityDialog} /></div>
+				<div style={{display:'flex', flexDirection:'row'}}>capacita di classe <Button title='show' onClick={openCapacityDialog} /></div>
 				<div style={{display:'flex', flexDirection:'row'}}>incantesimi <Button title='show' onClick={openSpeelDialog} /><Button title='aggiungi' onClick={openAddSpellDialog} /></div>
 				<div style={{display:'flex', flexDirection:'row'}}>talenti bonus <Button title='show' onClick={openBonusFeatsDialog} /><Button title='aggiungi' onClick={openBonusFeatDialog} /></div>
 				<ClassDialog classe={classe} open={classDetailDialog} handleClose={closeClassDetailDialog}/>
 				<BonusFeatsDialog open={bonusFeatsDialog} handleClose={closeBonusFeatsDialog} CodPer={CodPer} NomeClasse={classe.NomeClasse}/>
 				<SpellDialog open={speelDialog} handleClose={closeSpeelDialog} CodPer={CodPer} NomeClasse={classe.NomeClasse} />
-				<CapacityDialog open={capacityDialog} handleClose={closeCapacityDialog} CodPer={CodPer} NomeClasse={classe.NomeClasse} />
-				<AddCapacityDialog open={addCapacityDialog} handleClose={closeAddCapacityDialog} CodPer={CodPer} NomeClasse={classe.NomeClasse}  />
+				<CapacityDialog open={capacityDialog} handleClose={closeCapacityDialog} classe={classe} />
 				<AddSpellDialog open={addSpellDialog} handleClose={closeAddSpellDialog} CodPer={CodPer} NomeClasse={classe.NomeClasse}/>
 				<AddBonusFeatDialog  open={addBonusFeatDialog} handleClose={closeBonusFeatDialog} CodPer={CodPer} NomeClasse={classe.NomeClasse}/>
 			</div>

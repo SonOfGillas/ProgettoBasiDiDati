@@ -13,7 +13,7 @@ function CapacityDialog (props) {
 	const getCapacityApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/sheet/class/capacity';
 	const getCapacity = useCallback(
 		() => {
-			const data = { CodPer: props.CodPer, Classe: props.NomeClasse };
+			const data = { NomeClasse: props.classe.NomeClasse, NomeCapacita: props.classe.NomeCapacita, Livello: props.classe.Livello };
 
 			axios
 				.post(getCapacityApi, data)

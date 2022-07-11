@@ -14,13 +14,7 @@ exports.handler = async (event) => {
 			});
 
 			const query =
-				"SELECT * FROM Capacita WHERE Nome in ( select NomeCapacita from CapacitaClasse where NomeClasse='" +
-				event['NomeClasse'] +
-				"' AND NomeClasse='" +
-				event['Classe'] +
-				"' AND Livello=" +
-				event['Livello']
-				" );";
+				"SELECT * FROM Capacita WHERE Nome in ( select NomeCapacita from CapacitaClasse where  NomeClasse='" +event['NomeClasse'] +"' AND Livello=" +event['Livello']+" );";
 
 			db.connect();
 
