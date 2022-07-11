@@ -1,4 +1,3 @@
-
 const mysql = require('mysql');
 
 exports.handler = async (event) => {
@@ -14,10 +13,9 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const query =
-              `Select Nome from Capacita`;
-			
-            db.connect();
+			const query = "SELECT * FROM DettaglioClasse WHERE NomeClasse = '" + event['NomeClasse'] + "'";
+
+			db.connect();
 
 			db.query(query, (err, result) => {
 				if (err) throw err;
