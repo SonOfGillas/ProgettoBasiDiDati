@@ -1,4 +1,3 @@
-
 const mysql = require('mysql');
 
 exports.handler = async (event) => {
@@ -14,11 +13,7 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const query =
-              `Delete from IncantesimiAppresi where 
-                CodPer=`+event['CodPer']+` AND
-                NomeClasse='`+event['NomeClasse']+`' AND '
-                NomeIncantesimo=`+event['NomeIncantesimo']+"'";
+			const query = "update Classi set Livello="+event['Livello']+" WHERE CodPer ="+event['CodPer']+" AND NomeClasse='"+event['NomeClasse']+"'";
 			
             db.connect();
 
