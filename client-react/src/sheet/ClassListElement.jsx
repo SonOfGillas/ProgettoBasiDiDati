@@ -4,9 +4,9 @@ import { useState,useCallback } from 'react';
 import BonusFeatsDialog from './ViewDialog/BonusFeatDialog';
 import SpellDialog from './ViewDialog//SpellDialog'
 import CapacityDialog from './ViewDialog/CapacityDialog';
-import AddCapacityDialog from './AddDialog/AddCapacity';
 import AddSpellDialog from './AddDialog/AddSpell';
 import AddBonusFeatDialog from './AddDialog/AddBonusFeat';
+import axios from 'axios'
 
 function ClassListElement(props) {
 	const classe = props.classe;
@@ -32,9 +32,32 @@ function ClassListElement(props) {
 	const openBonusFeatDialog = useCallback(()=>setAddBonusFeatDialog(true));
 	const closeBonusFeatDialog = useCallback(()=>setAddBonusFeatDialog(false));
 
+	const deleteClassApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/deletefromsheet/class';
+	const deleteClass = useCallback(
+		() => {
+			const data = { CodPer: CodPer, NomeClasse: classe.NomeClasse };
+
+			axios
+				.post(deleteClassApi, data)
+				.then((response) => {
+					console.log(response);;
+				})
+				.catch((error) => {
+					console.log(error);
+					alert(error);
+				});
+		},
+		[ props ]
+	);
+  
+
 	return (
 			<div style={{ display: 'flex',flexDirection:'column', border:5, borderStyle:'solid',padding:30, marginBottom:10 }}>
-				<div style={{display:'flex', flexDirection:'row'}}><h4>{classe.NomeClasse} livello {classe.Livello}</h4><Button title='show' onClick={openClassDetailDialog} /></div>	
+				<div style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
+					<h4>{classe.NomeClasse} livello {classe.Livello}</h4>
+					<Button title='show' onClick={openClassDetailDialog} />
+					<Button title='elimina' onClick={deleteClass} />
+				</div>	
 				<div style={{display:'flex', flexDirection:'row'}}>capacita di classe <Button title='show' onClick={openCapacityDialog} /></div>
 				<div style={{display:'flex', flexDirection:'row'}}>incantesimi <Button title='show' onClick={openSpeelDialog} /><Button title='aggiungi' onClick={openAddSpellDialog} /></div>
 				<div style={{display:'flex', flexDirection:'row'}}>talenti bonus <Button title='show' onClick={openBonusFeatsDialog} /><Button title='aggiungi' onClick={openBonusFeatDialog} /></div>

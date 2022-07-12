@@ -29,6 +29,25 @@ function FeatsDialog (props) {
 		[ props ]
 	);
 
+    const deleteBonusFeatApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/deletefromsheet/class/bonusfeats';
+	const deleteBonusFeat = useCallback(
+		(NomeTalento) => {
+			const data = { CodPer: props.CodPer, NomeClasse: props.NomeClasse, NomeTalento:NomeTalento};
+
+			axios
+				.post(deleteBonusFeatApi, data)
+				.then((response) => {
+					console.log(response);;
+				})
+				.catch((error) => {
+					console.log(error);
+					alert(error);
+				});
+		},
+		[ props ]
+	);
+  
+
     useEffect(()=>{
         if(props.open){
             getBonusFeats()
@@ -47,6 +66,9 @@ function FeatsDialog (props) {
                 <div key={index}>
                     <h4>Nome: {bonusFeat.Nome}</h4>
                     <p>Descrizione: {bonusFeat.Descrizione}</p>
+                    <Button onClick={()=>deleteBonusFeat(bonusFeat.Nome)} color="primary">
+                        rimuovi
+                    </Button>
             </div>
             )}
         </DialogContent>

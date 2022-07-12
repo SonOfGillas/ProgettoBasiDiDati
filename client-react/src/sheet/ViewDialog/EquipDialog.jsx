@@ -31,6 +31,25 @@ function EquipDialog (props) {
 		[ props ]
 	);
 
+  const deleteWeaponApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/deletefromsheet/weapon';
+	const deleteWeapon = useCallback(
+		(Nome) => {
+			const data = { CodPer: props.CodPer, Nome: Nome };
+
+			axios
+				.post(deleteWeaponApi, data)
+				.then((response) => {
+					console.log(response);;
+				})
+				.catch((error) => {
+					console.log(error);
+					alert(error);
+				});
+		},
+		[ props ]
+	);
+  
+
     useEffect(()=>{
       if(props.open){
         getEquip()
@@ -76,6 +95,9 @@ function EquipDialog (props) {
                 <p>Gittata: {weapon.Gittata}</p>
                 <p>richiede CompetenzaArmiEsotiche: {weapon.CompetenzaArmiEsotiche?'si':'no'}</p>
                 <p>richiede CompetenzaArmiGuerra: {weapon.CompetenzaArmiGuerra?'si':'no'}</p>
+                <Button onClick={()=>deleteWeapon(weapon.Nome)} color="primary">
+                elimina
+                </Button>
               </div>)}
             </div>
           }

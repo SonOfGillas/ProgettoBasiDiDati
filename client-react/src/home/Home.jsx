@@ -38,6 +38,24 @@ function Home() {
 		[ params.email ]
 	);
 
+	const deleteCharacterApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/deletefromsheet'
+	const deleteCharacter = useCallback(
+		(CodPer) => {
+			const data = { CodPer: CodPer };
+
+			axios
+				.post(deleteCharacterApi, data)
+				.then((response) => {
+					console.log(response);
+				})
+				.catch((error) => {
+					console.log(error);
+					alert(error);
+				});
+		},
+		[]
+	);
+
 	useEffect(
 		() => {
 			getCharacters();
@@ -62,7 +80,11 @@ function Home() {
 	const Character = (props) => {
 		return (
 			<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 15 }}>
-				{props.character.Nome} <Button title='show' onClick={() => openOcDetail(props.character.CodPer)} />
+				{props.character.Nome} 
+				<div  style={{ display: 'flex', flexDirection: 'row'}}>
+				<Button title='show' onClick={() => openOcDetail(props.character.CodPer)} />
+				<Button title='delete' onClick={() => deleteCharacter(props.character.CodPer)} />
+				</div>
 			</div>
 		);
 	};

@@ -8,7 +8,7 @@ import { useState,useCallback,useEffect } from 'react';
 import axios from 'axios'
 
 function SpellDialog (props) {
-	const [ bonusFeats, setBonusFeats ] = useState();
+	const [ spells, setSpells ] = useState();
 
 	const getSpellApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/sheet/class/spell';
 	const getSpell = useCallback(
@@ -19,7 +19,25 @@ function SpellDialog (props) {
 				.post(getSpellApi, data)
 				.then((response) => {
 					console.log(response);
-					setBonusFeats(response.data.body);
+					setSpells(response.data.body);
+				})
+				.catch((error) => {
+					console.log(error);
+					alert(error);
+				});
+		},
+		[ props ]
+	);
+
+    const deleteSpellApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/deletefromsheet/class/spell';
+	const deleteSpell = useCallback(
+		(NomeIncantesimo) => {
+			const data = { CodPer: props.CodPer, NomeClasse: props.NomeClasse, NomeIncantesimo:NomeIncantesimo};
+
+			axios
+				.post(deleteSpellApi, data)
+				.then((response) => {
+					console.log(response);;
 				})
 				.catch((error) => {
 					console.log(error);
@@ -42,10 +60,13 @@ function SpellDialog (props) {
             Lista Spell
         </DialogTitle>
         <DialogContent> 
-            {bonusFeats && bonusFeats.map((bonusFeat,index)=>
+            {spells && spells.map((spell,index)=>
                 <div key={index}>
-                    <h4>Nome: {bonusFeat.Nome}</h4>
-                    <p>Descrizione: {bonusFeat.Descrizione}</p>
+                    <h4>Nome: {spell.Nome}</h4>
+                    <p>Descrizione: {spell.Descrizione}</p>
+                    <Button onClick={()=>deleteSpell(spell.Nome)} color="primary">
+                     rimuovi
+                    </Button>
             </div>
             )}
         </DialogContent>
