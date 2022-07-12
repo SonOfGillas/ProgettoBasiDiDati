@@ -32,13 +32,14 @@ function BonusFeatsDialog (props) {
 
     const deleteFeatApi = 'https://e157zbhd6c.execute-api.us-east-1.amazonaws.com/staging/deletefromsheet/feat';
 	const deleteFeat = useCallback(
-		() => {
-			const data = { CodPer: props.CodPer };
+		(NomeTalento) => {
+			const data = { CodPer: props.CodPer, NomeTalento:NomeTalento };
 
 			axios
 				.post(deleteFeatApi, data)
 				.then((response) => {
-					console.log(response);;
+					console.log(response);
+					props.handleClose();
 				})
 				.catch((error) => {
 					console.log(error);
@@ -65,7 +66,7 @@ function BonusFeatsDialog (props) {
                 <div key={index}>
                     <h4>{feat.Nome}</h4>
                     <p>{feat.Descrizione}</p>
-                    <Button onClick={deleteFeat} color="primary">
+                    <Button onClick={()=>deleteFeat(feat.Nome)} color="primary">
                     Rimuovi
                     </Button>
             </div>

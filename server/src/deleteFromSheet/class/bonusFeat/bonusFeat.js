@@ -16,9 +16,9 @@ exports.handler = async (event) => {
 
 			const query =
               `Delete from TalentiBonus where 
-                CodPer=`+event['CodPer']+`
-                NomeClasse=`+event['NomeClasse']+`
-                NomeTalento=`+event['NomeTalento'];
+                CodPer=`+event['CodPer']+` AND
+                NomeClasse='`+event['NomeClasse']+`' AND
+                NomeTalento='`+event['NomeTalento']+"'";
 			
             db.connect();
 
@@ -41,3 +41,4 @@ exports.handler = async (event) => {
 
 	return response;
 };
+

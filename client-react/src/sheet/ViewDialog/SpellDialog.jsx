@@ -37,7 +37,8 @@ function SpellDialog (props) {
 			axios
 				.post(deleteSpellApi, data)
 				.then((response) => {
-					console.log(response);;
+					console.log(response);
+					props.handleClose()
 				})
 				.catch((error) => {
 					console.log(error);

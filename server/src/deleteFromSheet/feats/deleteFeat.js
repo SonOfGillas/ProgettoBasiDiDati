@@ -15,7 +15,7 @@ exports.handler = async (event) => {
 			});
 
 			const query =
-              `Delete from TalentiAppresi where CodPer=`+event['CodPer']
+              `Delete from TalentiAppresi where CodPer=`+event['CodPer']+" AND NomeTalento='"+event['NomeTalento']+"'"
 			
             db.connect();
 
