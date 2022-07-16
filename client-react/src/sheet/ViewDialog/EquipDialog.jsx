@@ -6,6 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import { useState, useEffect, useCallback } from 'react';
+import {traslateCompArmature,traslateCompScudi} from '../Utilitis';
 
 function EquipDialog (props) {
 
@@ -110,23 +111,6 @@ function EquipDialog (props) {
         </DialogActions>
       </Dialog>
     )
-}
-
-export const traslateCompArmature = (competenza)=>{
-	switch(competenza){
-		case 0: return 'nessuna'
-		case 1: return 'leggere'
-		case 2: return 'medie'
-		case 3: return 'pesanti'
-	}
-}
-
-export const traslateCompScudi = (competenza)=>{
-	switch(competenza){
-		case 0: return 'nessuna'
-		case 1: return 'piccoli'
-		case 2: return 'grandi'
-	}
 }
 
 export default EquipDialog;

@@ -7,6 +7,7 @@ import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import { useState, useEffect, useCallback } from 'react';
+import {traslateSize} from '../Utilitis';
 
 function RaceDialog (props) {
 
@@ -69,29 +70,6 @@ function RaceDialog (props) {
         </DialogActions>
       </Dialog>
     )
-}
-
-const traslateSize = (taglia) => {
-  switch(taglia){
-    case -4:
-      return 'Piccolissima'
-    case -3:
-      return 'Minuta'
-    case -2:
-      return 'Minuscola'
-    case -1:
-      return 'Piccola'
-    case 0:
-      return 'Media'
-    case 1:
-      return 'Grande'
-    case 2:
-      return 'Enorme'
-    case 3:
-        return 'Mastodontica'
-    case 4:
-      return 'Colossale'
-  }
 }
 
 export default RaceDialog;
