@@ -13,17 +13,33 @@ exports.handler = async (event) => {
 				password: 'ineedtopass3exams',
 				database: 'Pathfinder_Sheets'
 			});
-
-			const query = "UPDATE Personaggi SET Imbraccia = '"+event['Imbraccia']+"' WHERE CodPer = '"+event['CodPer']+"'";
 			
+			const queryReadShield = "select  Competenza from Scudi where nome ='"+ event['Imbraccia'] +"'";
+			const queryGetPGcomp = "select CompScudi from Personaggi where CodPer="+ event['CodPer'];
+			const querySetVeste = "UPDATE Personaggi SET Imbraccia = '"+event['Imbraccia']+"' WHERE CodPer = "+event['CodPer'];
+
             db.connect();
 
-			db.query(query, (err, result) => {
+			db.query(queryReadShield, (err, compShield) => {
 				if (err) throw err;
-				db.end();
-				resolve({
-					statusCode: 202,
-					body: result
+				db.query(queryGetPGcomp, (err, pgComp) => {
+					if (err) throw err;
+					if(compShield[0].Competenza<=pgComp[0].CompScudi){
+						db.query(querySetVeste, (err, result) => {
+							if (err) throw err;
+							db.end();
+							resolve({
+								statusCode: 202,
+								body: result
+							});
+						});
+					} else {
+						db.end();
+						resolve({
+							statusCode: 403,
+							body: 'Il personaggio non ha la competenze adatta per imbracciare questo scudo'
+						});
+					}
 				});
 			});
 		});

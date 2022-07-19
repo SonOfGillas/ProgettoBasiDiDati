@@ -14,16 +14,35 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const query = "INSERT INTO  Equipaggiamento(CodPer,Nome) VALUES ("+event['CodPer']+",'"+event['Nome']+"');"
-			
+			const queryCompWeapon = "select  CompetenzaArmiGuerra,CompetenzaArmiEsotiche from Armi where nome ='"+ event['Nome'] +"'";
+			const queryGetPGcomp = "select CompeArmiGuerra,CompeArmiEsotiche from Personaggi where CodPer="+ event['CodPer'];
+			const queryAddWeapon = "INSERT INTO  Equipaggiamento(CodPer,Nome) VALUES ("+event['CodPer']+",'"+event['Nome']+"');";
+
       db.connect();
 
-			db.query(query, (err, result) => {
+		db.query(queryCompWeapon, (err,compWeapon) => {
 				if (err) throw err;
-				db.end();
-				resolve({
-					statusCode: 202,
-					body: result
+				db.query(queryGetPGcomp, (err, pgComp) => {
+					if (err) throw err;
+					if(
+						compWeapon[0].CompetenzaArmiGuerra <= pgComp[0].CompeArmiGuerra &&
+						compWeapon[0].CompetenzaArmiEsotiche <= pgComp[0].CompeArmiEsotiche
+						){
+						db.query(queryAddWeapon, (err, result) => {
+							if (err) throw err;
+							db.end();
+							resolve({
+								statusCode: 202,
+								body: result
+							});
+						});
+					}else{
+						db.end();
+						resolve({
+							statusCode: 403,
+							body: 'il personaggio non ha le competenze per usare quest arma'
+						});
+					}
 				});
 			});
 		});

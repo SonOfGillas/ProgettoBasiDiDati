@@ -14,16 +14,33 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const query = "UPDATE Personaggi SET Veste = '"+event['Veste']+"' WHERE CodPer = "+event['CodPer'];
+			const queryReadArmor = "select  Competenza from Armature where nome ='"+ event['Veste'] +"'";
+			const queryGetPGcomp = "select CompArmature from Personaggi where CodPer="+ event['CodPer'];
+			const querySetVeste = "UPDATE Personaggi SET Veste = '"+event['Veste']+"' WHERE CodPer = "+event['CodPer'];
 			
             db.connect();
 
-			db.query(query, (err, result) => {
+
+			db.query(queryReadArmor, (err, armorComp) => {
 				if (err) throw err;
-				db.end();
-				resolve({
-					statusCode: 202,
-					body: result
+				db.query(queryGetPGcomp, (err, pgComp) => {
+					if (err) throw err;
+					if(armorComp[0].Competenza<=pgComp[0].CompArmature){
+						db.query(querySetVeste, (err, result) => {
+							if (err) throw err;
+							db.end();
+							resolve({
+								statusCode: 202,
+								body: result
+							});
+						});
+					} else {
+						db.end();
+						resolve({
+							statusCode: 403,
+							body: 'Il personaggio non ha la competenze adatta per indossare questa armatura'
+						});
+					}
 				});
 			});
 		});
