@@ -13,31 +13,40 @@ exports.handler = async (event) => {
 				password: 'ineedtopass3exams',
 				database: 'Pathfinder_Sheets'
 			});
-			
-			const queryReadShield = "select  Competenza from Scudi where nome ='"+ event['Imbraccia'] +"'";
-			const queryGetPGcomp = "select CompScudi from Personaggi where CodPer="+ event['CodPer'];
-			const querySetVeste = "UPDATE Personaggi SET Imbraccia = '"+event['Imbraccia']+"' WHERE CodPer = "+event['CodPer'];
 
+			const queryReadShield = "select  Competenza,BonusCA  from Scudi where nome ='"+ event['Imbraccia'] +"'";
+			const queryPgInfo = "select Destrezza,Taglia,CompScudi from Personaggi as P,Razze as R where R.Nome = P.Razza and P.CodPer="+ event['CodPer'];
+			const getCaArmor = "select  BonusCA from Armature where nome =(select Veste from Personaggi where CodPer="+event['CodPer']+")";
+			
             db.connect();
 
-			db.query(queryReadShield, (err, compShield) => {
+
+			db.query(queryReadShield, (err, shieldInfo) => {
 				if (err) throw err;
-				db.query(queryGetPGcomp, (err, pgComp) => {
+				db.query(queryPgInfo, (err, pgInfo) => {
 					if (err) throw err;
-					if(compShield[0].Competenza<=pgComp[0].CompScudi){
-						db.query(querySetVeste, (err, result) => {
+					const compShield = shieldInfo.length>0?shieldInfo[0].Competenza:0;
+					const bonusShield =  shieldInfo.length>0?shieldInfo[0].BonusCA:0;
+					if(compShield<=pgInfo[0].CompScudi){
+						db.query(getCaArmor, (err, caArmor) => {
 							if (err) throw err;
-							db.end();
-							resolve({
-								statusCode: 202,
-								body: result
+							const bonusArmor = caArmor.length>0?caArmor[0].BonusCA:0;
+							const CA = 10 + bonusShield + bonusArmor + (pgInfo[0].Destrezza-10/2) - pgInfo[0].Taglia
+							const queryUpdatePG = "UPDATE Personaggi SET Imbraccia ='"+event['Imbraccia']+"',CA="+CA+" WHERE CodPer = "+event['CodPer'];
+							db.query(queryUpdatePG, (err, result ) => {
+								if (err) throw err;
+								db.end();
+										resolve({
+											statusCode: 202,
+											body: result
+										});
 							});
 						});
 					} else {
 						db.end();
 						resolve({
 							statusCode: 403,
-							body: 'Il personaggio non ha la competenze adatta per imbracciare questo scudo'
+							body: 'Il personaggio non ha la competenze adatta per indossare questa armatura'
 						});
 					}
 				});
