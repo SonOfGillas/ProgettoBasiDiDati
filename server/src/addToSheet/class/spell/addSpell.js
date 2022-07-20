@@ -13,7 +13,7 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const querySpellCasterClass = "Select Incantatore from DettaglioClasse where Nome='" + event['NomeClasse'] + "'";
+			const querySpellCasterClass = "Select Incantatore from DettaglioClasse where NomeClasse='" + event['NomeClasse'] + "'";
 			const query =
 				'INSERT INTO IncantesimiAppresi (CodPer,NomeClasse,NomeIncantesimo) VALUES (' +
 				event['CodPer'] +
@@ -25,13 +25,24 @@ exports.handler = async (event) => {
 
 			db.connect();
 
-			db.query(query, (err, result) => {
+			db.query(querySpellCasterClass, (err, classInfo) => {
 				if (err) throw err;
-				db.end();
-				resolve({
-					statusCode: 202,
-					body: result
-				});
+				if(classInfo[0].Incantatore){
+					db.query(query, (err, result) => {
+						if (err) throw err;
+						db.end();
+						resolve({
+							statusCode: 202,
+							body: result
+						});
+					});
+				} else {
+					db.end();
+						resolve({
+							statusCode: 403,
+							body: 'Questa classe non puo lanciare incantesimi'
+						});
+				}
 			});
 		});
 	} catch (e) {
