@@ -65,7 +65,7 @@ function Home() {
 
 	const openOcDetail = useCallback(
 		(CodPer) => {
-			navigate('/Sheet/' + params.email + CodPer);
+			navigate('/Sheet/' + params.email +'/'+ CodPer);
 		},
 		[ navigate, params.email ]
 	);

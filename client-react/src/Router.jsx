@@ -11,7 +11,7 @@ function Router() {
 			<Routes>
 				<Route path='/' element={<SignUp />} />
 				<Route path='/home/:email' element={<Home />} />
-				<Route path='/sheet/:email:CodPer' element={<Sheet />} />
+				<Route path='/sheet/:email/:CodPer' element={<Sheet />} />
 			</Routes>
 		</BrowserRouter>
 	);
