@@ -1,4 +1,3 @@
-
 const mysql = require('mysql');
 
 exports.handler = async (event) => {
@@ -14,9 +13,17 @@ exports.handler = async (event) => {
 				database: 'Pathfinder_Sheets'
 			});
 
-			const query ="INSERT INTO IncantesimiAppresi (CodPer,NomeClasse,NomeIncantesimo) VALUES ("+event['CodPer']+",'"+event['NomeClasse']+"','"+event['NomeIncantesimo']+"')";
-			
-            db.connect();
+			const querySpellCasterClass = "Select Incantatore from DettaglioClasse where Nome='" + event['NomeClasse'] + "'";
+			const query =
+				'INSERT INTO IncantesimiAppresi (CodPer,NomeClasse,NomeIncantesimo) VALUES (' +
+				event['CodPer'] +
+				",'" +
+				event['NomeClasse'] +
+				"','" +
+				event['NomeIncantesimo'] +
+				"')";
+
+			db.connect();
 
 			db.query(query, (err, result) => {
 				if (err) throw err;
