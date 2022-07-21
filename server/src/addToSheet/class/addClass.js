@@ -43,7 +43,7 @@ exports.handler = async (event) => {
 
 							const PF = classStat[0].PF + (costituzione* classStat[0].LivelloPersonaggio)
 							const BMC = forza + classStat[0].BAB + raceDimension[0].Taglia;
-							const DMC = 10 + forza + destrezza + raceDimension[0].Taglia
+							const DMC = 10 + classStat[0].BAB +forza + destrezza + raceDimension[0].Taglia
 							const Tempra = classStat[0].Tempra + costituzione;
 							const Riflessi = classStat[0].Riflessi + destrezza;
 							const Volonta = classStat[0].Volonta + saggezza;
