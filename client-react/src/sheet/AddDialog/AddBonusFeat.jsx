@@ -26,6 +26,9 @@ function AddBonusFeatDialog(props) {
 				.post(addBonusFeatApi, data)
 				.then((response) => {
 					console.log(response);
+					if(response.data.statusCode==403){
+						alert(response.data.body)
+					}
 					props.handleClose();
 				})
 				.catch((error) => {

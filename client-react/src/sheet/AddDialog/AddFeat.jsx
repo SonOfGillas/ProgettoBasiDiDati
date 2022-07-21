@@ -24,6 +24,9 @@ function AddFeatDialog(props) {
 				.post(addFeatApi, data)
 				.then((response) => {
 					console.log(response);
+					if(response.data.statusCode==403){
+						alert(response.data.body)
+					}
 					props.handleClose();
 				})
 				.catch((error) => {

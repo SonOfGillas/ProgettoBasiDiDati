@@ -26,6 +26,9 @@ function AddSpellDialog(props) {
 				.post(addSpellApi, data)
 				.then((response) => {
 					console.log(response);
+					if(response.data.statusCode==403){
+						alert(response.data.body)
+					}
 					props.handleClose();
 				})
 				.catch((error) => {
