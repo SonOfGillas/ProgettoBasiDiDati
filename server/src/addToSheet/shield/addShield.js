@@ -46,7 +46,7 @@ exports.handler = async (event) => {
 						db.end();
 						resolve({
 							statusCode: 403,
-							body: 'Il personaggio non ha la competenze adatta per indossare questa armatura'
+							body: 'Il personaggio non ha la competenze adatta per imbracciare questo scudo'
 						});
 					}
 				});
